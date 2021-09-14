@@ -25,9 +25,14 @@ export const baseConfig = ({ mainFile = pkg.main, moduleFile = pkg.module, injec
   output: [
     {
       file: mainFile,
-      format: 'cjs',
+      format: 'umd',
       sourcemap: true,
       exports: 'named',
+      name: 'ReactFlow',
+      globals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+      },
     },
     {
       file: moduleFile,
