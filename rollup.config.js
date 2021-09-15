@@ -65,6 +65,9 @@ export const baseConfig = ({ mainFile = pkg.main, moduleFile = pkg.module, injec
       exclude: 'node_modules/**',
       babelHelpers: 'runtime',
     }),
+    replace({
+      'process.env.NODE_ENV': `'${processEnv}'`
+    })
   ],
 });
 
