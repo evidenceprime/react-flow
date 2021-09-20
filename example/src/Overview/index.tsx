@@ -125,7 +125,7 @@ const initialElements: Elements = [
   { id: 'e1-2', source: '1', target: '2', label: 'this is an edge label' },
   { id: 'e1-3', source: '1', target: '3' },
   { id: 'e3-4', source: '3', target: '4', animated: true, label: 'animated edge' },
-  { id: 'e4-5', source: '4', target: '5', arrowHeadType: ArrowHeadType.Arrow, label: 'edge with arrow head' },
+  { id: 'e4-5', source: '4', target: '5', arrowHeadType: ArrowHeadType.ArrowTarget, label: 'edge with arrow head' },
   { id: 'e5-6', source: '5', target: '6', type: 'smoothstep', label: 'smooth step edge' },
   {
     id: 'e5-7',

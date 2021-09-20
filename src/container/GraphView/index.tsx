@@ -76,6 +76,7 @@ const GraphView = ({
   preventScrolling,
   nodeExtent,
   arrowHeadColor,
+  markerStartId,
   markerEndId,
   zoomOnScroll,
   zoomOnPinch,
@@ -272,6 +273,7 @@ const GraphView = ({
         connectionLineComponent={connectionLineComponent}
         connectionMode={connectionMode}
         arrowHeadColor={arrowHeadColor}
+        markerStartId={markerStartId}
         markerEndId={markerEndId}
         onEdgeUpdate={onEdgeUpdate}
         onlyRenderVisibleElements={onlyRenderVisibleElements}

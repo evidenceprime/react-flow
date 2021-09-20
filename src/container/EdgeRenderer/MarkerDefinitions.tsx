@@ -37,7 +37,17 @@ const MarkerDefinitions = ({ color }: MarkerDefinitionsProps) => {
           points="-5,-4 0,0 -5,4 -5,-4"
         />
       </Marker>
-      <Marker id="react-flow__arrow">
+      <Marker id="react-flow__arrowsource">
+        <polyline
+          stroke={color}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
+          fill="none"
+          points="5,-4 0,0 5,4"
+        />
+      </Marker>
+      <Marker id="react-flow__arrowtarget">
         <polyline
           stroke={color}
           strokeLinecap="round"

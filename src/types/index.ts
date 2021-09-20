@@ -52,8 +52,9 @@ export interface Node<T = any> {
 }
 
 export enum ArrowHeadType {
-  Arrow = 'arrow',
-  ArrowClosed = 'arrowclosed',
+  ArrowSource = 'arrowsource',
+  ArrowTarget = 'arrowtarget',
+  DoubleArrow = 'doublearrow',
 }
 
 export interface Edge<T = any> {
@@ -122,6 +123,7 @@ export interface WrapEdgeProps<T = any> {
   sourcePosition: Position;
   targetPosition: Position;
   elementsSelectable?: boolean;
+  markerStartId?: string;
   markerEndId?: string;
   isHidden?: boolean;
   handleEdgeUpdate: boolean;
@@ -155,6 +157,7 @@ export interface EdgeProps<T = any> {
   labelBgBorderRadius?: number;
   style?: CSSProperties;
   arrowHeadType?: ArrowHeadType;
+  markerStartId?: string;
   markerEndId?: string;
   data?: T;
   sourceHandleId?: ElementId | null;

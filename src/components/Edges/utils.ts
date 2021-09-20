@@ -4,8 +4,25 @@ export const getMarkerEnd = (arrowHeadType?: ArrowHeadType, markerEndId?: string
   if (typeof markerEndId !== 'undefined' && markerEndId) {
     return `url(#${markerEndId})`;
   }
+  const isArrowHeadTypeTargetOrDouble =
+    (arrowHeadType === ArrowHeadType.ArrowTarget) || (arrowHeadType === ArrowHeadType.DoubleArrow);
+  
+  return typeof arrowHeadType !== 'undefined' && isArrowHeadTypeTargetOrDouble
+    ? `url(#react-flow__${ArrowHeadType.ArrowTarget})`
+    : 'none';
+};
 
-  return typeof arrowHeadType !== 'undefined' ? `url(#react-flow__${arrowHeadType})` : 'none';
+export const getMarkerStart = (arrowHeadType?: ArrowHeadType, markerStartId?: string): string => {
+  if (typeof markerStartId !== 'undefined' && markerStartId) {
+    return `url(#${markerStartId})`;
+  }
+
+  const isArrowHeadTypeSourceOrDouble =
+    (arrowHeadType === ArrowHeadType.ArrowSource) || (arrowHeadType === ArrowHeadType.DoubleArrow);
+
+  return typeof arrowHeadType !== 'undefined' && isArrowHeadTypeSourceOrDouble
+    ? `url(#react-flow__${ArrowHeadType.ArrowSource})`
+    : 'none';
 };
 
 export interface GetCenterParams {

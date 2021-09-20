@@ -54,7 +54,7 @@ const initialElements: Elements = [
       </>
     ),
     labelStyle: { fill: 'red', fontWeight: 700 },
-    arrowHeadType: ArrowHeadType.Arrow,
+    arrowHeadType: ArrowHeadType.ArrowTarget,
   },
   {
     id: 'e5-7',
@@ -64,7 +64,7 @@ const initialElements: Elements = [
     labelBgPadding: [8, 4],
     labelBgBorderRadius: 4,
     labelBgStyle: { fill: '#FFCC00', color: '#fff', fillOpacity: 0.7 },
-    arrowHeadType: ArrowHeadType.ArrowClosed,
+    arrowHeadType: ArrowHeadType.ArrowTarget,
   },
   {
     id: 'e5-8',
@@ -72,7 +72,7 @@ const initialElements: Elements = [
     target: '8',
     type: 'custom',
     data: { text: 'custom edge' },
-    arrowHeadType: ArrowHeadType.ArrowClosed,
+    arrowHeadType: ArrowHeadType.ArrowTarget,
   },
   {
     id: 'e5-9',

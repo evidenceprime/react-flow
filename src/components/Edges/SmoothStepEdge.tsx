@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 
 import EdgeText from './EdgeText';
-import { getMarkerEnd, getCenter } from './utils';
+import { getMarkerEnd, getMarkerStart, getCenter } from './utils';
 import { EdgeSmoothStepProps, Position } from '../../types';
 
 // These are some helper methods for drawing the round corners
@@ -127,6 +127,7 @@ export default memo(
     sourcePosition = Position.Bottom,
     targetPosition = Position.Top,
     arrowHeadType,
+    markerStartId,
     markerEndId,
     borderRadius = 5,
   }: EdgeSmoothStepProps) => {
@@ -143,6 +144,7 @@ export default memo(
     });
 
     const markerEnd = getMarkerEnd(arrowHeadType, markerEndId);
+    const markerStart = getMarkerStart(arrowHeadType, markerStartId);
 
     const text = label ? (
       <EdgeText
@@ -159,7 +161,13 @@ export default memo(
 
     return (
       <>
-        <path style={style} className="react-flow__edge-path" d={path} markerEnd={markerEnd} />
+        <path
+          style={style}
+          className="react-flow__edge-path"
+          d={path}
+          markerEnd={markerEnd}
+          markerStart={markerStart}
+        />
         {text}
       </>
     );

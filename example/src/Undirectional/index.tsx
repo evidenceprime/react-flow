@@ -69,7 +69,7 @@ const initialElements: Elements = [
     sourceHandle: 'left',
     targetHandle: 'bottom',
     type: 'smoothstep',
-    arrowHeadType: ArrowHeadType.Arrow,
+    arrowHeadType: ArrowHeadType.ArrowTarget,
   },
   {
     id: 'e0-1b',
@@ -78,7 +78,7 @@ const initialElements: Elements = [
     sourceHandle: 'top',
     targetHandle: 'right',
     type: 'smoothstep',
-    arrowHeadType: ArrowHeadType.Arrow,
+    arrowHeadType: ArrowHeadType.ArrowTarget,
   },
   {
     id: 'e0-2a',
@@ -87,7 +87,7 @@ const initialElements: Elements = [
     sourceHandle: 'top',
     targetHandle: 'left',
     type: 'smoothstep',
-    arrowHeadType: ArrowHeadType.Arrow,
+    arrowHeadType: ArrowHeadType.ArrowTarget,
   },
   {
     id: 'e0-2b',
@@ -96,7 +96,7 @@ const initialElements: Elements = [
     sourceHandle: 'right',
     targetHandle: 'bottom',
     type: 'smoothstep',
-    arrowHeadType: ArrowHeadType.Arrow,
+    arrowHeadType: ArrowHeadType.ArrowTarget,
   },
   {
     id: 'e0-3a',
@@ -105,7 +105,7 @@ const initialElements: Elements = [
     sourceHandle: 'right',
     targetHandle: 'top',
     type: 'smoothstep',
-    arrowHeadType: ArrowHeadType.Arrow,
+    arrowHeadType: ArrowHeadType.ArrowTarget,
   },
   {
     id: 'e0-3b',
@@ -114,7 +114,7 @@ const initialElements: Elements = [
     sourceHandle: 'bottom',
     targetHandle: 'left',
     type: 'smoothstep',
-    arrowHeadType: ArrowHeadType.Arrow,
+    arrowHeadType: ArrowHeadType.ArrowTarget,
   },
   {
     id: 'e0-4a',
@@ -123,7 +123,7 @@ const initialElements: Elements = [
     sourceHandle: 'bottom',
     targetHandle: 'right',
     type: 'smoothstep',
-    arrowHeadType: ArrowHeadType.Arrow,
+    arrowHeadType: ArrowHeadType.ArrowTarget,
   },
   {
     id: 'e0-4b',
@@ -132,7 +132,7 @@ const initialElements: Elements = [
     sourceHandle: 'left',
     targetHandle: 'top',
     type: 'smoothstep',
-    arrowHeadType: ArrowHeadType.Arrow,
+    arrowHeadType: ArrowHeadType.ArrowTarget,
   },
   {
     id: 'e0-10',
@@ -141,7 +141,7 @@ const initialElements: Elements = [
     sourceHandle: 'top',
     targetHandle: 'bottom',
     type: 'smoothstep',
-    arrowHeadType: ArrowHeadType.Arrow,
+    arrowHeadType: ArrowHeadType.ArrowTarget,
   },
   {
     id: 'e0-20',
@@ -150,7 +150,7 @@ const initialElements: Elements = [
     sourceHandle: 'right',
     targetHandle: 'left',
     type: 'smoothstep',
-    arrowHeadType: ArrowHeadType.Arrow,
+    arrowHeadType: ArrowHeadType.ArrowTarget,
   },
   {
     id: 'e0-30',
@@ -159,7 +159,7 @@ const initialElements: Elements = [
     sourceHandle: 'bottom',
     targetHandle: 'top',
     type: 'smoothstep',
-    arrowHeadType: ArrowHeadType.Arrow,
+    arrowHeadType: ArrowHeadType.ArrowTarget,
   },
   {
     id: 'e0-40',
@@ -168,7 +168,7 @@ const initialElements: Elements = [
     sourceHandle: 'left',
     targetHandle: 'right',
     type: 'smoothstep',
-    arrowHeadType: ArrowHeadType.Arrow,
+    arrowHeadType: ArrowHeadType.ArrowTarget,
   },
 ];
 
@@ -182,7 +182,7 @@ const getId = (): ElementId => `${id++}`;
 const UpdateNodeInternalsFlow = () => {
   const [elements, setElements] = useState<Elements>(initialElements);
   const onConnect = (params: Connection | Edge) =>
-    setElements((els) => addEdge({ ...params, type: 'smoothstep' }, els));
+    setElements((els) => addEdge({ ...params, type: 'smoothstep', arrowHeadType: ArrowHeadType.DoubleArrow }, els));
   const { project } = useZoomPanHelper();
   const onEdgeUpdate = (oldEdge: Edge, newConnection: Connection) =>
     setElements((els) => updateEdge(oldEdge, newConnection, els));
