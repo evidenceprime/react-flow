@@ -1,0 +1,11 @@
+node_modules/
+npm-debug.log
+dist/
+public/
+build/
+.idea/
+.npmrc
+.git/
+yarn-error.log
+bower_components/
+test/**/*.xml

@@ -1,0 +1,69 @@
+name: publish-npm
+trigger:
+  tags:
+    include:
+    - 'v*'
+
+resources:
+- repo: self
+
+variables:
+  infraSubscription: '09ff12e9-71e0-4ae8-884b-c811bfd06c7c'
+  infraKeyVault: 'evidenceprimeinfravault'
+  keyVaultFilter: 'mdg-pipeline-npm-token'
+  infraServiceConnection: "evidenceprime-infra"
+  keyVaultFilterBitbucketUser: 'mdg-pipeline-bitbucket-user'
+  keyVaultFilterBitbucketToken: 'mdg-pipeline-bitbucket-token'
+  keyVaultFilterGithubUser: 'mdg-pipeline-github-user'
+  keyVaultFilterGithubToken: 'mdg-pipeline-github-token'
+
+stages:
+- stage: Publish
+  displayName: Pubish to npm
+  jobs:
+  - job: Publish
+    displayName: Publish
+    pool:
+      name: Default
+      demands:
+      - couchdb
+    steps:
+    - checkout: self
+      clean: true
+      persistCredentials: true
+    - task: AzureKeyVault@2
+      inputs:
+        ConnectedServiceName: '$(infraServiceConnection)'
+        KeyVaultName: '$(infraKeyVault)'
+        SecretsFilter: '$(keyVaultFilterBitbucketUser)'
+        RunAsPreJob: false
+    - task: AzureKeyVault@2
+      inputs:
+        ConnectedServiceName: '$(infraServiceConnection)'
+        KeyVaultName: '$(infraKeyVault)'
+        SecretsFilter: '$(keyVaultFilterBitbucketToken)'
+        RunAsPreJob: false
+    - task: AzureKeyVault@2
+      inputs:
+        ConnectedServiceName: '$(infraServiceConnection)'
+        KeyVaultName: '$(infraKeyVault)'
+        SecretsFilter: '$(keyVaultFilterGithubUser)'
+        RunAsPreJob: false
+    - task: AzureKeyVault@2
+      inputs:
+        ConnectedServiceName: '$(infraServiceConnection)'
+        KeyVaultName: '$(infraKeyVault)'
+        SecretsFilter: '$(keyVaultFilterGithubToken)'
+        RunAsPreJob: false
+    - task: AzureKeyVault@2
+      inputs:
+        ConnectedServiceName: '$(infraServiceConnection)'
+        KeyVaultName: '$(infraKeyVault)'
+        SecretsFilter: '$(keyVaultFilter)'
+        RunAsPreJob: false
+    - task: Docker@2
+      inputs:
+        command: build
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        buildContext: '.'
+        arguments: --build-arg npm_token="$(mdg-pipeline-npm-token)"
