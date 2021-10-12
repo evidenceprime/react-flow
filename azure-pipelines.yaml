@@ -12,10 +12,6 @@ variables:
   infraKeyVault: 'evidenceprimeinfravault'
   keyVaultFilter: 'mdg-pipeline-npm-token'
   infraServiceConnection: "evidenceprime-infra"
-  keyVaultFilterBitbucketUser: 'mdg-pipeline-bitbucket-user'
-  keyVaultFilterBitbucketToken: 'mdg-pipeline-bitbucket-token'
-  keyVaultFilterGithubUser: 'mdg-pipeline-github-user'
-  keyVaultFilterGithubToken: 'mdg-pipeline-github-token'
 
 stages:
 - stage: Publish
@@ -31,30 +27,6 @@ stages:
     - checkout: self
       clean: true
       persistCredentials: true
-    - task: AzureKeyVault@2
-      inputs:
-        ConnectedServiceName: '$(infraServiceConnection)'
-        KeyVaultName: '$(infraKeyVault)'
-        SecretsFilter: '$(keyVaultFilterBitbucketUser)'
-        RunAsPreJob: false
-    - task: AzureKeyVault@2
-      inputs:
-        ConnectedServiceName: '$(infraServiceConnection)'
-        KeyVaultName: '$(infraKeyVault)'
-        SecretsFilter: '$(keyVaultFilterBitbucketToken)'
-        RunAsPreJob: false
-    - task: AzureKeyVault@2
-      inputs:
-        ConnectedServiceName: '$(infraServiceConnection)'
-        KeyVaultName: '$(infraKeyVault)'
-        SecretsFilter: '$(keyVaultFilterGithubUser)'
-        RunAsPreJob: false
-    - task: AzureKeyVault@2
-      inputs:
-        ConnectedServiceName: '$(infraServiceConnection)'
-        KeyVaultName: '$(infraKeyVault)'
-        SecretsFilter: '$(keyVaultFilterGithubToken)'
-        RunAsPreJob: false
     - task: AzureKeyVault@2
       inputs:
         ConnectedServiceName: '$(infraServiceConnection)'
