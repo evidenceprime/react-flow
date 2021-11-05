@@ -20,4 +20,4 @@ RUN chown -R build:build /home/build
 USER build
 
 RUN npm install
-RUN npm release:notest
+RUN npm run release:notest
