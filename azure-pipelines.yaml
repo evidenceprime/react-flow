@@ -1,8 +1,6 @@
 name: publish-npm
 trigger:
-  tags:
-    include:
-    - 'v*'
+- main
 
 resources:
 - repo: self
