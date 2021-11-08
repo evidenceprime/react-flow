@@ -12,12 +12,13 @@ ARG npm_token
 
 ADD .npmrc.tpl /root/
 RUN sed -i 's/NPM_TOKEN/'"$npm_token"'/' /root/.npmrc.tpl
+RUN mv /root/.npmrc.tpl .npmrc
 
 COPY . .
 
-RUN mv /root/.npmrc.tpl .npmrc
 RUN chown -R build:build /home/build
 USER build
 
 RUN npm install
-RUN npm run release:notest
+RUN npm run build
+RUN npm publish
