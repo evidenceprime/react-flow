@@ -38,7 +38,7 @@
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
 }
 
 .react-flow__edge {
@@ -87,7 +87,7 @@
   height: 100%;
   pointer-events: none;
   transform-origin: 0 0;
-  z-index: 3;
+  z-index: 4;
 }
 
 .react-flow__node {
@@ -98,7 +98,7 @@
 }
 
 .react-flow__nodesselection {
-  z-index: 3;
+  z-index: 4;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -184,4 +184,37 @@
   z-index: 5;
   bottom: 10px;
   right: 10px;
+}
+
+.react-flow__section {
+  display: flex;
+  flex-direction: row;
+  min-width: 300px;
+  min-height: 34px;
+  background: transparent;
+  overflow-y: auto;
+  &.nodrag {
+    resize: both;
+    cursor: default;
+  }
+}
+
+.react-flow__section__label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  min-width: 32px;
+  background: #9FA5B7;
+  font-weight: 700;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 1rem 0;
+}
+
+.react-flow__section__content {
+  width: 100%;
 }

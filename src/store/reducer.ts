@@ -1,3 +1,4 @@
+import { isSection } from './../utils/graph';
 import isEqual from 'fast-deep-equal';
 
 import { clampPosition, getDimensions } from '../utils';
@@ -9,10 +10,11 @@ import {
   isEdge,
   parseNode,
   parseEdge,
+  parseSection,
 } from '../utils/graph';
 import { getHandleBounds } from '../components/Nodes/utils';
 
-import { ReactFlowState, Node, XYPosition, Edge } from '../types';
+import { ReactFlowState, Node, XYPosition, Edge, Section } from '../types';
 import * as constants from './contants';
 import { ReactFlowAction } from './actions';
 
@@ -21,6 +23,7 @@ import { initialState } from './index';
 type NextElements = {
   nextNodes: Node[];
   nextEdges: Edge[];
+  nextSections: Section[];
 };
 
 export default function reactFlowReducer(state = initialState, action: ReactFlowAction): ReactFlowState {
@@ -30,9 +33,33 @@ export default function reactFlowReducer(state = initialState, action: ReactFlow
       const nextElements: NextElements = {
         nextNodes: [],
         nextEdges: [],
+        nextSections: [],
       };
-      const { nextNodes, nextEdges } = propElements.reduce((res, propElement): NextElements => {
-        if (isNode(propElement)) {
+      const { nextNodes, nextEdges, nextSections } = propElements.reduce((res, propElement): NextElements => {
+        if (isSection(propElement)) {
+          const storeSection = state.sections.find((section) => section.id === propElement.id);
+          if (storeSection) {
+            const updatedSection: Section = {
+              ...storeSection,
+              ...propElement
+            }
+
+            if (storeSection.position.x !== propElement.position.x || storeSection.position.y !== propElement.position.y) {
+              updatedSection.__rf.Position = propElement.position;
+            }
+
+            if (typeof propElement.type !== 'undefined' && propElement.type !== storeSection.type) {
+              // we reset the elements dimensions here in order to force a re-calculation of the bounds.
+              // When the type of a node changes it is possible that the number or positions of handles changes too.
+              updatedSection.__rf.width = null;
+            }
+
+            res.nextSections.push(updatedSection);
+          } else {
+            res.nextSections.push(parseSection(propElement, state.sectionExtent));
+          }
+          
+        } else if (isNode(propElement)) {
           const storeNode = state.nodes.find((node) => node.id === propElement.id);
 
           if (storeNode) {
@@ -71,7 +98,7 @@ export default function reactFlowReducer(state = initialState, action: ReactFlow
         return res;
       }, nextElements);
 
-      return { ...state, nodes: nextNodes, edges: nextEdges };
+      return { ...state, nodes: nextNodes, edges: nextEdges, sections: nextSections };
     }
     case constants.UPDATE_NODE_DIMENSIONS: {
       const updatedNodes = state.nodes.map((node) => {
@@ -100,9 +127,43 @@ export default function reactFlowReducer(state = initialState, action: ReactFlow
         return node;
       });
 
+      const updatedSections = state.sections.map((section) => {
+        const update = action.payload.find((u) => u.id === section.id);
+        if (update && update.nodeElement) {
+          const dimensions = getDimensions(update.nodeElement);
+          const snapGrid = update.snapGrid ?? [1, 1];
+          const updatedDimensions = {
+            width: Math.floor(dimensions.width / snapGrid[0]) * snapGrid[0],
+            height: Math.floor(dimensions.height / snapGrid[1]) * snapGrid[1]
+          }
+          const doUpdate =
+            dimensions.width &&
+            dimensions.height &&
+            (section.__rf.width !== dimensions.width || section.__rf.height !== dimensions.height || update.forceUpdate);
+
+          if (doUpdate) {
+            const handleBounds = getHandleBounds(update.nodeElement, state.transform[2]);  
+            return {
+              ...section,
+              __rf: {
+                ...section.__rf,
+                ...updatedDimensions,
+                handleBounds,
+              },
+              style: {
+                ...section.style,
+                ...updatedDimensions,
+              }
+            };
+          }
+        }
+        return section;
+      });
+
       return {
         ...state,
         nodes: updatedNodes,
+        sections: updatedSections
       };
     }
     case constants.UPDATE_NODE_POS: {
@@ -159,7 +220,30 @@ export default function reactFlowReducer(state = initialState, action: ReactFlow
         return node;
       });
 
-      return { ...state, nodes: nextNodes };
+      const nextSections = state.sections.map((section) => {
+        if (id === section.id || state.selectedElements?.find((sNode) => sNode.id === section.id)) {
+          const updatedSection = {
+            ...section,
+            __rf: {
+              ...section.__rf,
+              isDragging,
+            },
+          };
+
+          if (diff) {
+            updatedSection.__rf.position = {
+              x: section.__rf.position.x + diff.x,
+              y: section.__rf.position.y + diff.y,
+            };
+          }
+
+          return updatedSection;
+        }
+
+        return section;
+      });
+
+      return { ...state, nodes: nextNodes, sections: nextSections };
     }
     case constants.SET_USER_SELECTION: {
       const mousePos = action.payload;

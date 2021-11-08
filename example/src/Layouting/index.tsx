@@ -5,6 +5,7 @@ import ReactFlow, {
   removeElements,
   Controls,
   isNode,
+  isEdge,
   Elements,
   Connection,
   Edge,
@@ -37,7 +38,7 @@ const LayoutFlow = () => {
     elements.forEach((el) => {
       if (isNode(el)) {
         dagreGraph.setNode(el.id, { width: 150, height: 50 });
-      } else {
+      } else if(isEdge(el)) {
         dagreGraph.setEdge(el.source, el.target);
       }
     });

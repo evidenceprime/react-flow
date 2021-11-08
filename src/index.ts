@@ -13,6 +13,7 @@ export { getMarkerEnd, getCenter as getEdgeCenter } from './components/Edges/uti
 export {
   isNode,
   isEdge,
+  isSection,
   removeElements,
   addEdge,
   getOutgoers,

@@ -4,16 +4,18 @@ import { useStoreActions, useStore } from '../../store/hooks';
 import FlowRenderer from '../FlowRenderer';
 import NodeRenderer from '../NodeRenderer';
 import EdgeRenderer from '../EdgeRenderer';
+import SectionRenderer from '../SectionRenderer';
 import { onLoadProject, onLoadGetElements, onLoadToObject } from '../../utils/graph';
 import useZoomPanHelper from '../../hooks/useZoomPanHelper';
 
 import { ReactFlowProps } from '../ReactFlow';
 
-import { NodeTypesType, EdgeTypesType, ConnectionLineType, KeyCode } from '../../types';
+import { NodeTypesType, EdgeTypesType, ConnectionLineType, KeyCode, SectionTypesType } from '../../types';
 
 export interface GraphViewProps extends Omit<ReactFlowProps, 'onSelectionChange' | 'elements'> {
   nodeTypes: NodeTypesType;
   edgeTypes: EdgeTypesType;
+  sectionTypes: SectionTypesType;
   selectionKeyCode: KeyCode;
   deleteKeyCode: KeyCode;
   multiSelectionKeyCode: KeyCode;
@@ -30,6 +32,7 @@ export interface GraphViewProps extends Omit<ReactFlowProps, 'onSelectionChange'
 const GraphView = ({
   nodeTypes,
   edgeTypes,
+  sectionTypes,
   onMove,
   onMoveStart,
   onMoveEnd,
@@ -248,42 +251,57 @@ const GraphView = ({
       onSelectionContextMenu={onSelectionContextMenu}
       preventScrolling={preventScrolling}
     >
-      <NodeRenderer
-        nodeTypes={nodeTypes}
+      {/* {false && <> */}
+        <NodeRenderer
+          nodeTypes={nodeTypes}
+          onElementClick={onElementClick}
+          onNodeDoubleClick={onNodeDoubleClick}
+          onNodeMouseEnter={onNodeMouseEnter}
+          onNodeMouseMove={onNodeMouseMove}
+          onNodeMouseLeave={onNodeMouseLeave}
+          onNodeContextMenu={onNodeContextMenu}
+          onNodeDragStop={onNodeDragStop}
+          onNodeDrag={onNodeDrag}
+          onNodeDragStart={onNodeDragStart}
+          selectNodesOnDrag={selectNodesOnDrag}
+          snapToGrid={snapToGrid}
+          snapGrid={snapGrid}
+          onlyRenderVisibleElements={onlyRenderVisibleElements}
+        />
+        <EdgeRenderer
+          edgeTypes={edgeTypes}
+          onElementClick={onElementClick}
+          onEdgeDoubleClick={onEdgeDoubleClick}
+          connectionLineType={connectionLineType}
+          connectionLineStyle={connectionLineStyle}
+          connectionLineComponent={connectionLineComponent}
+          connectionMode={connectionMode}
+          arrowHeadColor={arrowHeadColor}
+          markerStartId={markerStartId}
+          markerEndId={markerEndId}
+          onEdgeUpdate={onEdgeUpdate}
+          onlyRenderVisibleElements={onlyRenderVisibleElements}
+          onEdgeContextMenu={onEdgeContextMenu}
+          onEdgeMouseEnter={onEdgeMouseEnter}
+          onEdgeMouseMove={onEdgeMouseMove}
+          onEdgeMouseLeave={onEdgeMouseLeave}
+          onEdgeUpdateStart={onEdgeUpdateStart}
+          onEdgeUpdateEnd={onEdgeUpdateEnd}
+          edgeUpdaterRadius={edgeUpdaterRadius}
+        />
+      {/* </>} */}
+      <SectionRenderer
+        sectionTypes={sectionTypes}
         onElementClick={onElementClick}
-        onNodeDoubleClick={onNodeDoubleClick}
         onNodeMouseEnter={onNodeMouseEnter}
         onNodeMouseMove={onNodeMouseMove}
         onNodeMouseLeave={onNodeMouseLeave}
-        onNodeContextMenu={onNodeContextMenu}
-        onNodeDragStop={onNodeDragStop}
-        onNodeDrag={onNodeDrag}
         onNodeDragStart={onNodeDragStart}
-        selectNodesOnDrag={selectNodesOnDrag}
+        onNodeDrag={onNodeDrag}
+        onNodeDragStop={onNodeDragStop}
         snapToGrid={snapToGrid}
         snapGrid={snapGrid}
         onlyRenderVisibleElements={onlyRenderVisibleElements}
-      />
-      <EdgeRenderer
-        edgeTypes={edgeTypes}
-        onElementClick={onElementClick}
-        onEdgeDoubleClick={onEdgeDoubleClick}
-        connectionLineType={connectionLineType}
-        connectionLineStyle={connectionLineStyle}
-        connectionLineComponent={connectionLineComponent}
-        connectionMode={connectionMode}
-        arrowHeadColor={arrowHeadColor}
-        markerStartId={markerStartId}
-        markerEndId={markerEndId}
-        onEdgeUpdate={onEdgeUpdate}
-        onlyRenderVisibleElements={onlyRenderVisibleElements}
-        onEdgeContextMenu={onEdgeContextMenu}
-        onEdgeMouseEnter={onEdgeMouseEnter}
-        onEdgeMouseMove={onEdgeMouseMove}
-        onEdgeMouseLeave={onEdgeMouseLeave}
-        onEdgeUpdateStart={onEdgeUpdateStart}
-        onEdgeUpdateEnd={onEdgeUpdateEnd}
-        edgeUpdaterRadius={edgeUpdaterRadius}
       />
     </FlowRenderer>
   );

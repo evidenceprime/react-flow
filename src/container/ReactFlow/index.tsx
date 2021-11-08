@@ -14,6 +14,8 @@ import DefaultNode from '../../components/Nodes/DefaultNode';
 import InputNode from '../../components/Nodes/InputNode';
 import OutputNode from '../../components/Nodes/OutputNode';
 import { createNodeTypes } from '../NodeRenderer/utils';
+import DefaultSection from '../../components/Sections/DefaultSection';
+import { createSectionTypes } from '../SectionRenderer/utils';
 import SelectionListener from '../../components/SelectionListener';
 import { BezierEdge, StepEdge, SmoothStepEdge, StraightEdge } from '../../components/Edges';
 import { createEdgeTypes } from '../EdgeRenderer/utils';
@@ -22,9 +24,11 @@ import {
   Elements,
   NodeTypesType,
   EdgeTypesType,
+  SectionTypesType,
   OnLoadFunc,
   Node,
   Edge,
+  Section,
   Connection,
   ConnectionMode,
   ConnectionLineType,
@@ -56,18 +60,23 @@ const defaultEdgeTypes = {
   smoothstep: SmoothStepEdge,
 };
 
+const defaultSectionTypes = {
+  default: DefaultSection,
+  section: DefaultSection,
+}
+
 export interface ReactFlowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onLoad'> {
   elements: Elements;
-  onElementClick?: (event: ReactMouseEvent, element: Node | Edge) => void;
+  onElementClick?: (event: ReactMouseEvent, element: Node | Edge | Section) => void;
   onElementsRemove?: (elements: Elements) => void;
   onNodeDoubleClick?: (event: ReactMouseEvent, node: Node) => void;
-  onNodeMouseEnter?: (event: ReactMouseEvent, node: Node) => void;
-  onNodeMouseMove?: (event: ReactMouseEvent, node: Node) => void;
-  onNodeMouseLeave?: (event: ReactMouseEvent, node: Node) => void;
+  onNodeMouseEnter?: (event: ReactMouseEvent, node: Node | Section) => void;
+  onNodeMouseMove?: (event: ReactMouseEvent, node: Node | Section) => void;
+  onNodeMouseLeave?: (event: ReactMouseEvent, node: Node | Section) => void;
   onNodeContextMenu?: (event: ReactMouseEvent, node: Node) => void;
-  onNodeDragStart?: (event: ReactMouseEvent, node: Node) => void;
-  onNodeDrag?: (event: ReactMouseEvent, node: Node) => void;
-  onNodeDragStop?: (event: ReactMouseEvent, node: Node) => void;
+  onNodeDragStart?: (event: ReactMouseEvent, node: Node | Section) => void;
+  onNodeDrag?: (event: ReactMouseEvent, node: Node | Section) => void;
+  onNodeDragStop?: (event: ReactMouseEvent, node: Node | Section) => void;
   onConnect?: (connection: Edge | Connection) => void;
   onConnectStart?: OnConnectStartFunc;
   onConnectStop?: OnConnectStopFunc;
@@ -86,6 +95,7 @@ export interface ReactFlowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'on
   onPaneContextMenu?: (event: ReactMouseEvent) => void;
   nodeTypes?: NodeTypesType;
   edgeTypes?: EdgeTypesType;
+  sectionTypes?: SectionTypesType;
   connectionMode?: ConnectionMode;
   connectionLineType?: ConnectionLineType;
   connectionLineStyle?: CSSProperties;
@@ -129,6 +139,7 @@ export interface ReactFlowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'on
   edgeUpdaterRadius?: number;
   nodeTypesId?: string;
   edgeTypesId?: string;
+  sectionTypesId?: string;
 }
 
 export type ReactFlowRefType = HTMLDivElement;
@@ -140,6 +151,7 @@ const ReactFlow = forwardRef<ReactFlowRefType, ReactFlowProps>(
       className,
       nodeTypes = defaultNodeTypes,
       edgeTypes = defaultEdgeTypes,
+      sectionTypes = defaultSectionTypes,
       onElementClick,
       onLoad,
       onMove,
@@ -210,12 +222,14 @@ const ReactFlow = forwardRef<ReactFlowRefType, ReactFlowProps>(
       edgeUpdaterRadius = 10,
       nodeTypesId = '1',
       edgeTypesId = '1',
+      sectionTypesId = '1',
       ...rest
     },
     ref
   ) => {
     const nodeTypesParsed = useMemo(() => createNodeTypes(nodeTypes), [nodeTypesId]);
     const edgeTypesParsed = useMemo(() => createEdgeTypes(edgeTypes), [edgeTypesId]);
+    const sectionTypesParsed = useMemo(() => createSectionTypes(sectionTypes), [sectionTypesId]);
     const reactFlowClasses = cc(['react-flow', className]);
 
     return (
@@ -237,6 +251,7 @@ const ReactFlow = forwardRef<ReactFlowRefType, ReactFlowProps>(
             onNodeDragStop={onNodeDragStop}
             nodeTypes={nodeTypesParsed}
             edgeTypes={edgeTypesParsed}
+            sectionTypes={sectionTypesParsed}
             connectionMode={connectionMode}
             connectionLineType={connectionLineType}
             connectionLineStyle={connectionLineStyle}

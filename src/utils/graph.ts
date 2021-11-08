@@ -6,6 +6,7 @@ import {
   ElementId,
   Node,
   Edge,
+  Section,
   Elements,
   Transform,
   XYPosition,
@@ -15,13 +16,17 @@ import {
   FlowExportObject,
   ReactFlowState,
   NodeExtent,
+  SectionExtent
 } from '../types';
 
-export const isEdge = (element: Node | Connection | Edge): element is Edge =>
+export const isEdge = (element: Node | Connection | Edge | Section): element is Edge =>
   'id' in element && 'source' in element && 'target' in element;
 
-export const isNode = (element: Node | Connection | Edge): element is Node =>
-  'id' in element && !('source' in element) && !('target' in element);
+export const isNode = (element: Node | Connection | Edge | Section): element is Node =>
+  'id' in element && !('source' in element) && !('target' in element) && !('label' in element);
+
+export const isSection = (element: Node | Connection | Edge | Section): element is Section =>
+  'id' in element && element.type == 'section';
 
 export const getOutgoers = (node: Node, elements: Elements): Node[] => {
   if (!isNode(node)) {
@@ -161,6 +166,20 @@ export const parseNode = (node: Node, nodeExtent: NodeExtent): Node => {
   };
 };
 
+export const parseSection = (section: Section, sectionExtent: SectionExtent): Section => {
+  return {
+    ...section,
+    id: section.id.toString(),
+    type: section.type || 'default',
+    __rf: {
+      position: clampPosition(section.position, sectionExtent),
+      width: null,
+      height: null,
+      isDragging: false,
+    },
+  };
+};
+
 export const parseEdge = (edge: Edge): Edge => {
   return {
     ...edge,
@@ -239,6 +258,46 @@ export const getNodesInside = (
 
     if (width === null || height === null || isDragging) {
       // nodes are initialized with width and height = null
+      return true;
+    }
+
+    if (partially) {
+      return overlappingArea > 0;
+    }
+
+    const area = width * height;
+
+    return overlappingArea >= area;
+  });
+};
+
+export const getSectionsInside = (
+  sections: Section[],
+  rect: Rect,
+  [tx, ty, tScale]: Transform = [0, 0, 1],
+  partially: boolean = false,
+  // set excludeNonSelectableNodes if you want to pay attention to the nodes "selectable" attribute
+  excludeNonSelectableNodes: boolean = false
+): Section[] => {
+  const rBox = rectToBox({
+    x: (rect.x - tx) / tScale,
+    y: (rect.y - ty) / tScale,
+    width: rect.width / tScale,
+    height: rect.height / tScale,
+  });
+
+  return sections.filter(({ selectable = true, __rf: { position, width, height, isDragging } }) => {
+    if (excludeNonSelectableNodes && !selectable) {
+      return false;
+    }
+
+    const nBox = rectToBox({ ...position, width, height });
+    const xOverlap = Math.max(0, Math.min(rBox.x2, nBox.x2) - Math.max(rBox.x, nBox.x));
+    const yOverlap = Math.max(0, Math.min(rBox.y2, nBox.y2) - Math.max(rBox.y, nBox.y));
+    const overlappingArea = Math.ceil(xOverlap * yOverlap);
+
+    if (width === null || height === null || isDragging) {
+      // sections are initialized with width and height = null
       return true;
     }
 

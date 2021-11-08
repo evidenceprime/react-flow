@@ -3,7 +3,7 @@ import { Selection as D3Selection, ZoomBehavior } from 'd3';
 
 export type ElementId = string;
 
-export type FlowElement<T = any> = Node<T> | Edge<T>;
+export type FlowElement<T = any> = Node<T> | Edge<T> | Section<T>;
 
 export type Elements<T = any> = Array<FlowElement<T>>;
 
@@ -88,6 +88,8 @@ export type HandleType = 'source' | 'target';
 export type NodeTypesType = { [key: string]: ReactNode };
 
 export type EdgeTypesType = NodeTypesType;
+
+export type SectionTypesType = NodeTypesType;
 
 export interface SelectionRect extends Rect {
   startX: number;
@@ -191,6 +193,22 @@ export interface NodeProps<T = any> {
   isDragging?: boolean;
 }
 
+export interface SectionProps<T = any> {
+  id: ElementId;
+  type: string;
+  data: T;
+  label: string;
+  selected: boolean;
+  xPos?: number;
+  yPos?: number;
+  isDragging?: boolean;
+}
+
+export interface SectionState {
+  width: number;
+  height: number;
+}
+
 export interface NodeComponentProps<T = any> {
   id: ElementId;
   type: string;
@@ -211,6 +229,25 @@ export interface NodeComponentProps<T = any> {
   onNodeDragStart?: (node: Node) => void;
   onNodeDrag?: (node: Node) => void;
   onNodeDragStop?: (node: Node) => void;
+  style?: CSSProperties;
+  isDragging?: boolean;
+}
+
+export interface SectionComponentProps<T = any> {
+  id: ElementId;
+  type: string;
+  data: T;
+  selected?: boolean;
+  transform?: Transform;
+  xPos?: number;
+  yPos?: number;
+  onClick?: (section: Section) => void;
+  onMouseEnter?: (section: Section) => void;
+  onMouseMove?: (section: Section) => void;
+  onMouseLeave?: (section: Section) => void;
+  onNodeDragStart?: (section: Section) => void;
+  onNodeDrag?: (section: Section) => void;
+  onNodeDragStop?: (section: Section) => void;
   style?: CSSProperties;
   isDragging?: boolean;
 }
@@ -240,6 +277,34 @@ export interface WrapNodeProps<T = any> {
   className?: string;
   sourcePosition?: Position;
   targetPosition?: Position;
+  isHidden?: boolean;
+  isInitialized?: boolean;
+  snapToGrid?: boolean;
+  snapGrid?: SnapGrid;
+  isDragging?: boolean;
+  resizeObserver: ResizeObserver | null;
+}
+
+export interface WrapSectionProps<T = any> {
+  id: ElementId;
+  type: string;
+  data: T;
+  label: string;
+  selected: boolean;
+  scale: number;
+  xPos: number;
+  yPos: number;
+  isSelectable: boolean;
+  isDraggable: boolean;
+  onClick?: (event: ReactMouseEvent, section: Section) => void;
+  onMouseEnter?: (event: ReactMouseEvent, section: Section) => void;
+  onMouseMove?: (event: ReactMouseEvent, section: Section) => void;
+  onMouseLeave?: (event: ReactMouseEvent, section: Section) => void;
+  onNodeDragStart?: (event: ReactMouseEvent, section: Section) => void;
+  onNodeDrag?: (event: ReactMouseEvent, section: Section) => void;
+  onNodeDragStop?: (event: ReactMouseEvent, section: Section) => void;
+  style?: CSSProperties;
+  className?: string;
   isHidden?: boolean;
   isInitialized?: boolean;
   snapToGrid?: boolean;
@@ -361,6 +426,7 @@ export type FlowTransform = {
 
 export type TranslateExtent = [[number, number], [number, number]];
 export type NodeExtent = TranslateExtent;
+export type SectionExtent = TranslateExtent;
 
 export type KeyCode = number | string;
 
@@ -388,6 +454,7 @@ export type NodeDimensionUpdate = {
   id: ElementId;
   nodeElement: HTMLDivElement;
   forceUpdate?: boolean;
+  snapGrid?: [number, number] | null;
 };
 
 export type InitD3ZoomPayload = {
@@ -403,6 +470,7 @@ export interface ReactFlowState {
   transform: Transform;
   nodes: Node[];
   edges: Edge[];
+  sections: Section[];
   selectedElements: Elements | null;
   selectedNodesBbox: Rect;
 
@@ -413,6 +481,7 @@ export interface ReactFlowState {
   maxZoom: number;
   translateExtent: TranslateExtent;
   nodeExtent: NodeExtent;
+  sectionExtent: SectionExtent;
 
   nodesSelectionActive: boolean;
   selectionActive: boolean;
@@ -443,3 +512,17 @@ export interface ReactFlowState {
 }
 
 export type UpdateNodeInternals = (nodeId: ElementId) => void;
+
+export interface Section<T = any> {
+  id: ElementId;
+  position: XYPosition;
+  label: string;
+  __rf?: any;
+  type?: string;
+  data?: T;
+  style?: CSSProperties;
+  className?: string;
+  isHidden?: boolean;
+  draggable?: boolean;
+  selectable?: boolean;
+}

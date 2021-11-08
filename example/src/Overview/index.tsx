@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent, CSSProperties } from 'react';
+import React, { useState, MouseEvent } from 'react';
 
 import ReactFlow, {
   removeElements,
@@ -139,7 +139,7 @@ const initialElements: Elements = [
   },
 ];
 
-const connectionLineStyle: CSSProperties = { stroke: '#ddd' };
+const connectionLineStyle: any = { stroke: '#ddd' };
 const snapGrid: SnapGrid = [16, 16];
 
 const nodeStrokeColor = (n: Node): string => {

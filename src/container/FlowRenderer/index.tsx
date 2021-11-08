@@ -16,6 +16,7 @@ interface FlowRendererProps
     | 'snapToGrid'
     | 'nodeTypes'
     | 'edgeTypes'
+    | 'sectionTypes'
     | 'snapGrid'
     | 'connectionLineType'
     | 'arrowHeadColor'

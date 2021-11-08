@@ -8,6 +8,7 @@ export const initialState: ReactFlowState = {
   transform: [0, 0, 1],
   nodes: [],
   edges: [],
+  sections: [],
   selectedElements: null,
   selectedNodesBbox: { x: 0, y: 0, width: 0, height: 0 },
 
@@ -22,6 +23,11 @@ export const initialState: ReactFlowState = {
   ],
 
   nodeExtent: [
+    [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
+    [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
+  ],
+
+  sectionExtent: [
     [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
     [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
   ],
