@@ -45,9 +45,7 @@ import React, {
       resizeObserver,
     }: WrapSectionProps) => {
       const updateNodeDimensions = useStoreActions((actions) => actions.updateNodeDimensions);
-      const addSelectedElements = useStoreActions((actions) => actions.addSelectedElements);
       const updateNodePosDiff = useStoreActions((actions) => actions.updateNodePosDiff);
-      const unsetNodesSelection = useStoreActions((actions) => actions.unsetNodesSelection);
   
       const sectionElement = useRef<HTMLDivElement>(null);
   
@@ -101,23 +99,6 @@ import React, {
   
         return (event: MouseEvent) => onMouseLeave(event, section);
       }, [onMouseLeave, isDragging, section]);
-  
-      const onSelectNodeHandler = useCallback(
-        (event: MouseEvent) => {
-          if (!isDraggable) {
-            if (isSelectable) {
-              unsetNodesSelection();
-  
-              if (!selected) {
-                addSelectedElements(section);
-              }
-            }
-  
-            onClick?.(event, section);
-          }
-        },
-        [isSelectable, selected, isDraggable, onClick, section]
-      );
   
       const onDragStart = useCallback(
         (event: DraggableEvent) => {
@@ -213,7 +194,7 @@ import React, {
             onMouseEnter={onMouseEnterHandler}
             onMouseMove={onMouseMoveHandler}
             onMouseLeave={onMouseLeaveHandler}
-            onClick={onSelectNodeHandler}
+            onClick={(evt) => onClick?.(evt, section)}
             data-id={id}
           >
             <Provider value={id}>
