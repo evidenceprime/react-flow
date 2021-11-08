@@ -66,6 +66,7 @@ const HorizontalFlow = () => {
       onConnectStart={onConnectStart}
       onConnectStop={onConnectStop}
       onConnectEnd={onConnectEnd}
+      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
     />
   );
 };

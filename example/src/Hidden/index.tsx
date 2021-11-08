@@ -28,7 +28,11 @@ const HiddenFlow = () => {
   }, [isHidden]);
 
   return (
-    <ReactFlow elements={elements} onConnect={onConnect}>
+    <ReactFlow
+      elements={elements}
+      onConnect={onConnect}
+      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
+    >
       <MiniMap />
       <Controls />
 

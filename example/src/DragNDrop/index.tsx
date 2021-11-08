@@ -62,6 +62,7 @@ const DnDFlow = () => {
             onLoad={onLoad}
             onDrop={onDrop}
             onDragOver={onDragOver}
+            onNodeResize={(section, dimensions) => console.log(section, dimensions)}
           >
             <Controls />
           </ReactFlow>

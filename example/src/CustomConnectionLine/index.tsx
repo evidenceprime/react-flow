@@ -24,6 +24,7 @@ const ConnectionLineFlow = () => {
       connectionLineComponent={ConnectionLine}
       onElementsRemove={onElementsRemove}
       onConnect={onConnect}
+      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
     >
       <Background variant={BackgroundVariant.Lines} />
     </ReactFlow>

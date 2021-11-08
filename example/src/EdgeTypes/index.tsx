@@ -35,6 +35,7 @@ const EdgeTypesFlow = () => {
       onElementsRemove={onElementsRemove}
       onConnect={onConnect}
       minZoom={0.2}
+      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
     >
       <MiniMap />
       <Controls />

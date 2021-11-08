@@ -75,6 +75,7 @@ const BasicFlow = () => {
       defaultZoom={1.5}
       minZoom={0.2}
       maxZoom={4}
+      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
     >
       <Background variant={BackgroundVariant.Lines} />
 

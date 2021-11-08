@@ -27,7 +27,13 @@ const SaveRestore = () => {
 
   return (
     <ReactFlowProvider>
-      <ReactFlow elements={elements} onElementsRemove={onElementsRemove} onConnect={onConnect} onLoad={setRfInstance}>
+      <ReactFlow
+        elements={elements}
+        onElementsRemove={onElementsRemove}
+        onConnect={onConnect}
+        onLoad={setRfInstance}
+        onNodeResize={(section, dimensions) => console.log(section, dimensions)}
+      >
         <Controls rfInstance={rfInstance} setElements={setElements} />
       </ReactFlow>
     </ReactFlowProvider>

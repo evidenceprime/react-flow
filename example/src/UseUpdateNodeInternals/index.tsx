@@ -82,7 +82,13 @@ const UpdateNodeInternalsFlow = () => {
   const updateNode = useCallback(() => updateNodeInternals('1'), [updateNodeInternals]);
 
   return (
-    <ReactFlow elements={elements} nodeTypes={nodeTypes} onConnect={onConnect} onPaneClick={onPaneClick}>
+    <ReactFlow
+      elements={elements}
+      nodeTypes={nodeTypes}
+      onConnect={onConnect}
+      onPaneClick={onPaneClick}
+      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
+    >
       <div style={buttonWrapperStyles}>
         <button onClick={toggleHandleCount}>toggle handle count</button>
         <button onClick={toggleHandlePosition}>toggle handle position</button>

@@ -33,6 +33,7 @@ import React, {
       onNodeDragStart,
       onNodeDrag,
       onNodeDragStop,
+      onNodeResize,
       style,
       className,
       isDraggable,
@@ -145,6 +146,10 @@ import React, {
         },
         [section, onClick, onNodeDragStop, isDragging]
       );
+
+      const handleNodeResize = useCallback((dimensions: object) => {
+        onNodeResize(section, dimensions)
+      }, [section]);
   
       useLayoutEffect(() => {
         if (sectionElement.current && !isHidden) {
@@ -206,6 +211,7 @@ import React, {
                 yPos={yPos}
                 selected={selected}
                 isDragging={isDragging}
+                onNodeResize={handleNodeResize}
               />
             </Provider>
           </div>

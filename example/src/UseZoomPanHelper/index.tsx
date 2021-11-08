@@ -49,7 +49,13 @@ const UseZoomPanHelperFlow = () => {
   );
 
   return (
-    <ReactFlow elements={elements} onElementsRemove={onElementsRemove} onConnect={onConnect} onPaneClick={onPaneClick}>
+    <ReactFlow
+      elements={elements}
+      onElementsRemove={onElementsRemove}
+      onConnect={onConnect}
+      onPaneClick={onPaneClick}
+      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
+    >
       <Background />
       <MiniMap />
     </ReactFlow>

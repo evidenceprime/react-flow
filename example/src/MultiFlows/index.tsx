@@ -28,7 +28,12 @@ const Flow: FC = () => {
 
   return (
     <ReactFlowProvider>
-      <ReactFlow elements={elements} onElementsRemove={onElementsRemove} onConnect={onConnect}>
+      <ReactFlow
+        elements={elements}
+        onElementsRemove={onElementsRemove}
+        onConnect={onConnect}
+        onNodeResize={(section, dimensions) => console.log(section, dimensions)}
+      >
         <Background />
       </ReactFlow>
     </ReactFlowProvider>

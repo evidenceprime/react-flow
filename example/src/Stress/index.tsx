@@ -52,7 +52,13 @@ const StressFlow = () => {
   };
 
   return (
-    <ReactFlow elements={elements} onLoad={onLoad} onElementsRemove={onElementsRemove} onConnect={onConnect}>
+    <ReactFlow
+      elements={elements}
+      onLoad={onLoad}
+      onElementsRemove={onElementsRemove}
+      onConnect={onConnect}
+      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
+    >
       <MiniMap />
       <Controls />
       <Background />

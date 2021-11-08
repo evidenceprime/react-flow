@@ -191,6 +191,7 @@ const OverviewFlow = () => {
       onEdgeMouseMove={onEdgeMouseMove}
       onEdgeMouseLeave={onEdgeMouseLeave}
       onEdgeDoubleClick={onEdgeDoubleClick}
+      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
     >
       <MiniMap nodeStrokeColor={nodeStrokeColor} nodeColor={nodeColor} nodeBorderRadius={2} />
       <Controls />

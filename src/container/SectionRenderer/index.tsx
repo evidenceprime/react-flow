@@ -12,6 +12,7 @@ interface SectionRendererProps {
   onNodeDragStart?: (event: MouseEvent, section: Section) => void;
   onNodeDrag?: (event: MouseEvent, section: Section) => void;
   onNodeDragStop?: (event: MouseEvent, section: Section) => void;
+  onNodeResize: (section: Section, dimensions: object) => void;
   snapToGrid: boolean;
   snapGrid: [number, number];
   onlyRenderVisibleElements: boolean;
@@ -99,6 +100,7 @@ const SectionRenderer = (props: SectionRendererProps) => {
             isDraggable={isDraggable}
             isSelectable={isSelectable}
             resizeObserver={resizeObserver}
+            onNodeResize={props.onNodeResize}
           />
         );
       })}

@@ -198,6 +198,7 @@ const OverviewFlow = () => {
         paneMoveable={false}
         minZoom={1}
         maxZoom={1}
+        onNodeResize={(section, dimensions) => console.log(section, dimensions)}
       >
         <MiniMap
           nodeStrokeColor={nodeStrokeColor}

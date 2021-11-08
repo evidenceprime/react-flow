@@ -202,6 +202,7 @@ export interface SectionProps<T = any> {
   xPos?: number;
   yPos?: number;
   isDragging?: boolean;
+  onNodeResize: Function;
 }
 
 export interface SectionState {
@@ -250,6 +251,7 @@ export interface SectionComponentProps<T = any> {
   onNodeDragStop?: (section: Section) => void;
   style?: CSSProperties;
   isDragging?: boolean;
+  onNodeResize: (section: Section, dimensions: object) => void;
 }
 
 export interface WrapNodeProps<T = any> {
@@ -311,6 +313,7 @@ export interface WrapSectionProps<T = any> {
   snapGrid?: SnapGrid;
   isDragging?: boolean;
   resizeObserver: ResizeObserver | null;
+  onNodeResize: (section: Section, dimensions: object) => void;
 }
 
 export type FitViewParams = {

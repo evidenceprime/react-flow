@@ -44,7 +44,12 @@ const NodeTypeChangeFlow = () => {
   };
 
   return (
-    <ReactFlow elements={elements} onConnect={onConnect} onLoad={onLoad}>
+    <ReactFlow
+      elements={elements}
+      onConnect={onConnect}
+      onLoad={onLoad}
+      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
+    >
       <button onClick={changeType} style={buttonStyle}>
         change type
       </button>

@@ -22,6 +22,7 @@ class DefaultSection extends React.PureComponent<SectionProps, SectionState> {
         height: Math.floor(event.detail.height / 12.5) * 12.5
       }
       this.setState(updatedDimensions);
+      this.props.onNodeResize(updatedDimensions);
     });
     
     function checkResize(mutations: any[]) {

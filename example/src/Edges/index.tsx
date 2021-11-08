@@ -104,6 +104,7 @@ const EdgesFlow = () => {
       onLoad={onLoad}
       snapToGrid={true}
       edgeTypes={edgeTypes}
+      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
     >
       <MiniMap />
       <Controls />

@@ -208,6 +208,7 @@ const UpdateNodeInternalsFlow = () => {
       connectionLineType={ConnectionLineType.SmoothStep}
       connectionMode={ConnectionMode.Loose}
       onEdgeUpdate={onEdgeUpdate}
+      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
     />
   );
 };
