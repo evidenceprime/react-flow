@@ -1,6 +1,7 @@
 name: publish-npm
 trigger:
 - main
+pr: none
 
 resources:
 - repo: self
