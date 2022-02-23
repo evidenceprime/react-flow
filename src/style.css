@@ -125,25 +125,74 @@
 .react-flow__handle-bottom {
   top: auto;
   left: 50%;
-  bottom: -4px;
+  bottom: -6px;
+  transform: translate(-50%, 0);
+}
+
+.react-flow__handle-bottom-left {
+  top: auto;
+  left: 25%;
+  bottom: -6px;
+  transform: translate(-50%, 0);
+}
+
+.react-flow__handle-bottom-right {
+  top: auto;
+  left: 75%;
+  bottom: -6px;
   transform: translate(-50%, 0);
 }
 
 .react-flow__handle-top {
   left: 50%;
-  top: -4px;
+  top: -6px;
+  transform: translate(-50%, 0);
+}
+
+.react-flow__handle-top-left {
+  left: 25%;
+  top: -6px;
+  transform: translate(-50%, 0);
+}
+.react-flow__handle-top-right {
+  left: 75%;
+  top: -6px;
   transform: translate(-50%, 0);
 }
 
 .react-flow__handle-left {
   top: 50%;
-  left: -4px;
+  left: -6px;
+  transform: translate(0, -50%);
+}
+
+.react-flow__handle-left-top {
+  top: 25%;
+  left: -6px;
+  transform: translate(0, -50%);
+}
+
+.react-flow__handle-left-bottom {
+  top: 75%;
+  left: -6px;
   transform: translate(0, -50%);
 }
 
 .react-flow__handle-right {
-  right: -4px;
+  right: -6px;
   top: 50%;
+  transform: translate(0, -50%);
+}
+
+.react-flow__handle-right-top {
+  right: -6px;
+  top: 25%;
+  transform: translate(0, -50%);
+}
+
+.react-flow__handle-right-bottom {
+  right: -6px;
+  top: 75%;
   transform: translate(0, -50%);
 }
 
@@ -217,4 +266,53 @@
 
 .react-flow__section__content {
   width: 100%;
+}
+
+.react-flow__node-omnidirectional {
+  padding: 12.5px;
+  min-height: 42px;
+  font-size: 1.25rem;
+  text-align: center;
+  white-space: pre-wrap;
+  border-radius: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  .react-flow__handle {
+    visibility: hidden;
+  }
+
+  &:hover {
+    .react-flow__handle {
+      visibility: initial;
+      width: 10px !important;
+      height: 10px !important;
+    }
+  }
+
+  &.rounded {
+    border-radius: 25px;
+  }
+
+  a {
+    color: inherit;
+  }
+}
+
+.react-flow__node-breakpoint {
+  border: 0;
+
+  .react-flow__handle {
+    visibility: hidden;
+  }
+
+  &:hover {
+    .react-flow__handle {
+      visibility: initial;
+      width: 5px !important;
+      height: 5px !important;
+    }
+  }
 }
