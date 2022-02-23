@@ -10,9 +10,13 @@ import cc from 'classcat';
 
 import GraphView from '../GraphView';
 import ElementUpdater from '../../components/ElementUpdater';
-import DefaultNode from '../../components/Nodes/DefaultNode';
-import InputNode from '../../components/Nodes/InputNode';
-import OutputNode from '../../components/Nodes/OutputNode';
+import {
+  DefaultNode,
+  InputNode,
+  OutputNode,
+  OmnidirectionalNode,
+  BreakpointNode,
+} from '../../components/Nodes'
 import { createNodeTypes } from '../NodeRenderer/utils';
 import DefaultSection from '../../components/Sections/DefaultSection';
 import { createSectionTypes } from '../SectionRenderer/utils';
@@ -51,6 +55,8 @@ const defaultNodeTypes = {
   input: InputNode,
   default: DefaultNode,
   output: OutputNode,
+  omnidirectional: OmnidirectionalNode,
+  breakpoint: BreakpointNode
 };
 
 const defaultEdgeTypes = {

@@ -54,7 +54,7 @@ class DefaultSection extends React.PureComponent<SectionProps, SectionState> {
           width: this.state.width
         }}
       >
-        <div className='react-flow__section__label'>
+        <div className="react-flow__section__label">
           <span
             style={{
               display: 'flex',
@@ -64,7 +64,7 @@ class DefaultSection extends React.PureComponent<SectionProps, SectionState> {
             {label}
           </span>
         </div>
-        <div className='react-flow__section__content' style={{
+        <div className="react-flow__section__content" style={{
           background: background ?? '#FBFAF8'
         }}>
           {/* content */}
