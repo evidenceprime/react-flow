@@ -12,9 +12,10 @@ import React, {
 import { DraggableCore, DraggableData, DraggableEvent } from 'react-draggable';
 import cc from 'classcat';
 
-import { useStoreActions } from '../../store/hooks';
+import { useStoreActions, useStoreState } from '../../store/hooks';
 import { Provider } from '../../contexts/NodeIdContext';
-import { NodeComponentProps, WrapNodeProps } from '../../types';
+import { Edge, NodeComponentProps, WrapNodeProps } from '../../types';
+import { compose, concat, map, reduce, uniq } from 'lodash/fp';
 
 export default (NodeComponent: ComponentType<NodeComponentProps>) => {
   const NodeWrapper = ({
@@ -54,7 +55,20 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
     const updateNodePosDiff = useStoreActions((actions) => actions.updateNodePosDiff);
     const unsetNodesSelection = useStoreActions((actions) => actions.unsetNodesSelection);
 
+    const edges = useStoreState((state) => state.edges);
+    const { incoming: edgesIncoming, outgoing: edgesOutgoing } = reduce<Edge, { incoming: Edge[], outgoing: Edge[] }>((acc, edge) => {
+      if(edge.source === id) acc.outgoing.push(edge);
+      if(edge.target === id) acc.incoming.push(edge);
+      return acc;
+    }, { incoming: [], outgoing: [] }, edges);
+    const connectedHandlePositions = compose(
+      uniq,
+      concat(map('sourceHandle', edgesOutgoing)),
+      map('targetHandle')
+    )(edgesIncoming);
+
     const nodeElement = useRef<HTMLDivElement>(null);
+    const { shape, borderColor, background, fontColor } = data;
 
     const node = useMemo(() => ({ id, type, position: { x: xPos, y: yPos }, data }), [id, type, xPos, yPos, data]);
     const grid = useMemo(() => (snapToGrid ? snapGrid : [1, 1])! as [number, number], [snapToGrid, snapGrid]);
@@ -67,6 +81,9 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
           isSelectable || isDraggable || onClick || onMouseEnter || onMouseMove || onMouseLeave ? 'all' : 'none',
         // prevents jumping of nodes on start
         opacity: isInitialized ? 1 : 0,
+        border: borderColor ? `1px solid ${borderColor}` : 'none',
+        background: background ?? 'transparent',
+        color: fontColor ?? '#000',
         ...style,
       }),
       [
@@ -77,6 +94,9 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
         isDraggable,
         onClick,
         isInitialized,
+        borderColor,
+        background,
+        fontColor,
         style,
         onMouseEnter,
         onMouseMove,
@@ -227,6 +247,7 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
       {
         selected,
         selectable: isSelectable,
+        rounded: shape === 'rounded'
       },
     ]);
 
@@ -266,6 +287,7 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
               sourcePosition={sourcePosition}
               targetPosition={targetPosition}
               isDragging={isDragging}
+              connectedHandlePositions={connectedHandlePositions}
             />
           </Provider>
         </div>
