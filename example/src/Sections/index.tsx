@@ -1,4 +1,5 @@
 import { useState, MouseEvent } from 'react';
+import { debounce } from 'lodash';
 
 import ReactFlow, {
   removeElements,
@@ -198,7 +199,7 @@ const OverviewFlow = () => {
         paneMoveable={false}
         minZoom={1}
         maxZoom={1}
-        onNodeResize={(section, dimensions) => console.log(section, dimensions)}
+        onNodeResize={debounce((section, dimensions) => console.log(dimensions), 500)}
       >
         <MiniMap
           nodeStrokeColor={nodeStrokeColor}
