@@ -11,9 +11,17 @@ export type Transform = [number, number, number];
 
 export enum Position {
   Left = 'left',
+  LeftTop = 'left-top',
+  LeftBottom = 'left-bottom',
   Top = 'top',
+  TopLeft = 'top-left',
+  TopRight = 'top-right',
   Right = 'right',
+  RightTop = 'right-top',
+  RightBottom = 'right-bottom',
   Bottom = 'bottom',
+  BottomLeft = 'bottom-left',
+  BottomRight = 'bottom-right',
 }
 
 export interface XYPosition {
@@ -65,6 +73,7 @@ export interface Edge<T = any> {
   sourceHandle?: ElementId | null;
   targetHandle?: ElementId | null;
   label?: string | ReactNode;
+  labelXYOffset?: XYPosition;
   labelStyle?: CSSProperties;
   labelShowBg?: boolean;
   labelBgStyle?: CSSProperties;
@@ -107,6 +116,7 @@ export interface WrapEdgeProps<T = any> {
   selected: boolean;
   animated?: boolean;
   label?: string | ReactNode;
+  labelXYOffset?: XYPosition;
   labelStyle?: CSSProperties;
   labelShowBg?: boolean;
   labelBgStyle?: CSSProperties;
@@ -152,6 +162,7 @@ export interface EdgeProps<T = any> {
   sourcePosition: Position;
   targetPosition: Position;
   label?: string | ReactNode;
+  labelXYOffset?: XYPosition;
   labelStyle?: CSSProperties;
   labelShowBg?: boolean;
   labelBgStyle?: CSSProperties;
@@ -191,6 +202,7 @@ export interface NodeProps<T = any> {
   targetPosition?: Position;
   sourcePosition?: Position;
   isDragging?: boolean;
+  connectedHandlePositions?: Position[];
 }
 
 export interface SectionProps<T = any> {
@@ -232,6 +244,7 @@ export interface NodeComponentProps<T = any> {
   onNodeDragStop?: (node: Node) => void;
   style?: CSSProperties;
   isDragging?: boolean;
+  connectedHandlePositions?: Position[];
 }
 
 export interface SectionComponentProps<T = any> {
