@@ -51,21 +51,66 @@ export function getHandlePosition(position: Position, node: Node, handle: any | 
         x: x + width / 2,
         y,
       };
+    case Position.TopLeft:
+      return {
+        x: x + width / 4,
+        y
+      };
+    case Position.TopRight:
+      return {
+        x: x + width * 0.75,
+        y
+      };
     case Position.Right:
       return {
         x: x + width,
         y: y + height / 2,
+      };
+    case Position.RightTop:
+      return {
+        x: x + width,
+        y: y + height / 4,
+      };
+    case Position.RightBottom:
+      return {
+        x: x + width,
+        y: y + height * 0.75,
       };
     case Position.Bottom:
       return {
         x: x + width / 2,
         y: y + height,
       };
+    case Position.BottomLeft:
+      return {
+        x: x + width / 4,
+        y: y + height
+      };
+    case Position.BottomRight:
+      return {
+        x: x + width * 0.75,
+        y: y + height
+      };
     case Position.Left:
       return {
         x,
         y: y + height / 2,
       };
+    case Position.LeftTop:
+      return {
+        x,
+        y: y + height / 4,
+      };
+    case Position.LeftBottom:
+      return {
+        x,
+        y: y + height * 0.75,
+      };
+    default:
+      return {
+        x,
+        y
+      }
   }
 }
 
@@ -86,6 +131,28 @@ export function getHandle(bounds: HandleElement[], handleId: ElementId | null): 
   return typeof handle === 'undefined' ? null : handle;
 }
 
+function getXOffset(handlePosition: Position, handleType: 'source' | 'target'): number {
+  const typeMultiplier = handleType === 'source' ? -1 : 1;
+  if([Position.Left, Position.LeftTop, Position.LeftBottom].includes(handlePosition)) {
+    return typeMultiplier * -10;
+  } else if ([Position.Right, Position.RightTop, Position.RightBottom].includes(handlePosition)) {
+    return typeMultiplier * 10;
+  } else {
+    return 0;
+  }
+}
+
+function getYOffset(handlePosition: Position, handleType: 'source' | 'target'): number {
+  const typeMultiplier = handleType === 'source' ? -1 : 1;
+  if ([Position.Bottom, Position.BottomLeft, Position.BottomRight].includes(handlePosition)) {
+    return typeMultiplier * 10;
+  } else if ([Position.Top, Position.TopLeft, Position.TopRight].includes(handlePosition)) {
+    return typeMultiplier * -10;
+  } else {
+    return 0;
+  }
+}
+
 interface EdgePositions {
   sourceX: number;
   sourceY: number;
@@ -103,12 +170,20 @@ export const getEdgePositions = (
 ): EdgePositions => {
   const sourceHandlePos = getHandlePosition(sourcePosition, sourceNode, sourceHandle);
   const targetHandlePos = getHandlePosition(targetPosition, targetNode, targetHandle);
+  const sourceNodeOffset: XYPosition = {
+    x: sourceNode.type === 'breakpoint' ? getXOffset(sourcePosition, 'source') : 0,
+    y: sourceNode.type === 'breakpoint' ? getYOffset(sourcePosition, 'source') : 0,
+  };
+  const targetNodeOffset: XYPosition = {
+    x: targetNode.type === 'breakpoint' ? getXOffset(sourcePosition, 'target') : 0,
+    y: targetNode.type === 'breakpoint' ? getYOffset(sourcePosition, 'target') : 0,
+  }
 
   return {
-    sourceX: sourceHandlePos.x,
-    sourceY: sourceHandlePos.y,
-    targetX: targetHandlePos.x,
-    targetY: targetHandlePos.y,
+    sourceX: sourceHandlePos.x + sourceNodeOffset.x,
+    sourceY: sourceHandlePos.y + sourceNodeOffset.y,
+    targetX: targetHandlePos.x + targetNodeOffset.x,
+    targetY: targetHandlePos.y + targetNodeOffset.y,
   };
 };
 
