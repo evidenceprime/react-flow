@@ -27,6 +27,7 @@ import UseUpdateNodeInternals from './UseUpdateNodeInternals';
 import Undirectional from './Undirectional';
 import MultiFlows from './MultiFlows';
 import Sections from './Sections';
+import Omnidirectional from './Omnidirectional';
 
 import './index.css';
 
@@ -130,6 +131,10 @@ const routes = [
   {
     path: '/sections',
     component: Sections,
+  },
+  {
+    path: '/omnidirectional',
+    component: Omnidirectional,
   },
 ];
 
