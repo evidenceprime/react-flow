@@ -150,6 +150,7 @@ const Edge = ({
       selected={isSelected}
       animated={edge.animated}
       label={edge.label}
+      labelXYOffset={edge.labelXYOffset}
       labelStyle={edge.labelStyle}
       labelShowBg={edge.labelShowBg}
       labelBgStyle={edge.labelBgStyle}

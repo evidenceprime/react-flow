@@ -22,6 +22,7 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
     labelBgStyle,
     labelBgPadding,
     labelBgBorderRadius,
+    labelXYOffset,
     style,
     arrowHeadType,
     source,
@@ -202,6 +203,7 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
           selected={selected}
           animated={animated}
           label={label}
+          labelXYOffset={labelXYOffset}
           labelStyle={labelStyle}
           labelShowBg={labelShowBg}
           labelBgStyle={labelBgStyle}

@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 
 import EdgeText from './EdgeText';
 import { getMarkerEnd, getMarkerStart, getCenter } from './utils';
-import { EdgeSmoothStepProps, Position } from '../../types';
+import { ArrowHeadType, EdgeSmoothStepProps, Position, XYPosition } from '../../types';
 
 // These are some helper methods for drawing the round corners
 // The name indicates the direction of the path. "bottomLeftCorner" goes
@@ -48,7 +48,14 @@ export function getSmoothStepPath({
   const cornerWidth = Math.min(borderRadius, Math.abs(targetX - sourceX));
   const cornerHeight = Math.min(borderRadius, Math.abs(targetY - sourceY));
   const cornerSize = Math.min(cornerWidth, cornerHeight, offsetX, offsetY);
-  const leftAndRight = [Position.Left, Position.Right];
+  const leftAndRight = [
+    Position.LeftTop,
+    Position.Left,
+    Position.LeftBottom,
+    Position.RightTop,
+    Position.Right,
+    Position.RightBottom
+  ];
   const cX = typeof centerX !== 'undefined' ? centerX : _centerX;
   const cY = typeof centerY !== 'undefined' ? centerY : _centerY;
 
@@ -73,7 +80,11 @@ export function getSmoothStepPath({
         sourceY <= targetY ? rightTopCorner(cX, sourceY, cornerSize) : rightBottomCorner(cX, sourceY, cornerSize);
       secondCornerPath =
         sourceY <= targetY ? bottomLeftCorner(cX, targetY, cornerSize) : topLeftCorner(cX, targetY, cornerSize);
-    } else if (sourcePosition === Position.Right && targetPosition === Position.Left){
+    } else if (
+      ([Position.Right, Position.RightTop, Position.RightBottom].includes(sourcePosition))
+      &&
+      ([Position.Left, Position.LeftTop, Position.LeftBottom].includes(targetPosition))
+    ){
     // and sourceX > targetX
       firstCornerPath =
         sourceY <= targetY ? leftTopCorner(cX, sourceY, cornerSize) : leftBottomCorner(cX, sourceY, cornerSize);
@@ -111,6 +122,39 @@ export function getSmoothStepPath({
   return `M ${sourceX},${sourceY}${firstCornerPath}${secondCornerPath}L ${targetX},${targetY}`;
 }
 
+interface GetMarkersProps {
+  sourceX: number,
+  sourceY: number,
+  targetX: number,
+  targetY: number,
+  arrowHeadType?: ArrowHeadType,
+  markerStartId?: string,
+  markerEndId?: string,
+}
+
+function getMarkers({
+  sourceX,
+  sourceY,
+  targetX,
+  targetY,
+  arrowHeadType,
+  markerStartId,
+  markerEndId
+}: GetMarkersProps): { markerStart: string, markerEnd: string } {
+  const markerStartFunc =
+    arrowHeadType === ArrowHeadType.DoubleArrow && sourceX > targetX && sourceY >= targetY
+    ? getMarkerEnd
+    : getMarkerStart;
+  const markerEndFunc =
+    arrowHeadType === ArrowHeadType.DoubleArrow && sourceX > targetX && sourceY >= targetY
+    ? getMarkerStart
+    : getMarkerEnd;
+  return {
+    markerStart: markerStartFunc(arrowHeadType, markerStartId),
+    markerEnd: markerEndFunc(arrowHeadType, markerEndId),
+  }
+}
+
 export default memo(
   ({
     sourceX,
@@ -123,6 +167,7 @@ export default memo(
     labelBgStyle,
     labelBgPadding,
     labelBgBorderRadius,
+    labelXYOffset,
     style,
     sourcePosition = Position.Bottom,
     targetPosition = Position.Top,
@@ -132,6 +177,7 @@ export default memo(
     borderRadius = 5,
   }: EdgeSmoothStepProps) => {
     const [centerX, centerY] = getCenter({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition });
+    const labelOffset: XYPosition = labelXYOffset ?? { x: 0, y: 0 };
 
     const path = getSmoothStepPath({
       sourceX,
@@ -143,13 +189,20 @@ export default memo(
       borderRadius,
     });
 
-    const markerEnd = getMarkerEnd(arrowHeadType, markerEndId);
-    const markerStart = getMarkerStart(arrowHeadType, markerStartId);
+    const { markerStart, markerEnd } = getMarkers({
+      sourceX,
+      sourceY,
+      targetX,
+      targetY,
+      arrowHeadType,
+      markerStartId,
+      markerEndId,
+    });
 
     const text = label ? (
       <EdgeText
-        x={centerX}
-        y={centerY}
+        x={centerX + labelOffset.x}
+        y={centerY + labelOffset.y}
         label={label}
         labelStyle={labelStyle}
         labelShowBg={labelShowBg}
