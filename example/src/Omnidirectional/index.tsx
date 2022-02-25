@@ -22,7 +22,7 @@ const onLoad = (reactFlowInstance: OnLoadParams) => {
 const initialElements: Elements = [
   {
     id: '1',
-    type: 'omnidirectional',
+    type: 'unidirectional',
     data: {
       label: 'Omnidirectional block',
       borderColor: '#000',
@@ -32,7 +32,7 @@ const initialElements: Elements = [
   },
   {
     id: '2',
-    type: 'omnidirectional',
+    type: 'unidirectional',
     data: {
       label: 'LINK',
       hyperlink: 'https://example.org',
@@ -43,7 +43,7 @@ const initialElements: Elements = [
   },
   {
     id: '3',
-    type: 'omnidirectional',
+    type: 'unidirectional',
     data: {
       shape: 'rounded',
       label: 'rounded node',
@@ -55,7 +55,7 @@ const initialElements: Elements = [
   },
   {
     id: '4',
-    type: 'omnidirectional',
+    type: 'unidirectional',
     data: {
       shape: 'rounded',
       label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in nisi orci. Mauris faucibus nunc sagittis magna iaculis porttitor. Vestibulum sed pulvinar libero. In tincidunt cursus dolor at tristique. Praesent pellentesque rhoncus massa, a blandit magna efficitur ornare. Nam a luctus odio, at ultrices ante. Suspendisse sodales ullamcorper mi in finibus.',
@@ -73,7 +73,7 @@ const initialElements: Elements = [
   },
   {
     id: '6',
-    type: 'omnidirectional',
+    type: 'unidirectional',
     data: {
       shape: 'rounded',
       label: 'Left',
@@ -84,7 +84,7 @@ const initialElements: Elements = [
   },
   {
     id: '7',
-    type: 'omnidirectional',
+    type: 'unidirectional',
     data: {
       shape: 'rounded',
       label: 'Right',

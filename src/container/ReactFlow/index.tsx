@@ -14,7 +14,7 @@ import {
   DefaultNode,
   InputNode,
   OutputNode,
-  OmnidirectionalNode,
+  UnidirectionalNode,
   BreakpointNode,
 } from '../../components/Nodes'
 import { createNodeTypes } from '../NodeRenderer/utils';
@@ -55,7 +55,7 @@ const defaultNodeTypes = {
   input: InputNode,
   default: DefaultNode,
   output: OutputNode,
-  omnidirectional: OmnidirectionalNode,
+  unidirectional: UnidirectionalNode,
   breakpoint: BreakpointNode
 };
 

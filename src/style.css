@@ -268,7 +268,7 @@
   width: 100%;
 }
 
-.react-flow__node-omnidirectional {
+.react-flow__node-unidirectional {
   padding: 12.5px;
   min-height: 42px;
   font-size: 1.25rem;

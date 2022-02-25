@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import Handle from '../Handle';
 import { NodeProps, Position } from '../../types';
 
-const OmnidirectionalNode = ({
+const UnidirectionalNode = ({
   data,
   isConnectable
 }: NodeProps) => {
@@ -93,6 +93,6 @@ const OmnidirectionalNode = ({
   )
 };
 
-OmnidirectionalNode.displayName = 'OmnidirectionalNode';
+UnidirectionalNode.displayName = 'UnidirectionalNode';
 
-export default memo(OmnidirectionalNode);
+export default memo(UnidirectionalNode);
