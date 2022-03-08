@@ -1,7 +1,12 @@
 import React, { FC } from 'react';
 import { ConnectionLineComponentProps } from 'react-flow-renderer';
 
-const ConnectionLine: FC<ConnectionLineComponentProps> = ({ sourceX, sourceY, targetX, targetY }) => {
+const ConnectionLine: FC<ConnectionLineComponentProps> = ({
+  sourceX,
+  sourceY,
+  targetX,
+  targetY,
+}) => {
   return (
     <g>
       <path

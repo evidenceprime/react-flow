@@ -26,8 +26,10 @@ const onPaneClick = (event: MouseEvent) => console.log('pane click', event);
 const onPaneScroll = (event?: MouseEvent) => console.log('pane scroll', event);
 const onPaneContextMenu = (event: MouseEvent) => console.log('pane context menu', event);
 const onSelectionDrag = (_: MouseEvent, nodes: Node[]) => console.log('selection drag', nodes);
-const onSelectionDragStart = (_: MouseEvent, nodes: Node[]) => console.log('selection drag start', nodes);
-const onSelectionDragStop = (_: MouseEvent, nodes: Node[]) => console.log('selection drag stop', nodes);
+const onSelectionDragStart = (_: MouseEvent, nodes: Node[]) =>
+  console.log('selection drag start', nodes);
+const onSelectionDragStop = (_: MouseEvent, nodes: Node[]) =>
+  console.log('selection drag stop', nodes);
 const onSelectionContextMenu = (event: MouseEvent, nodes: Node[]) => {
   event.preventDefault();
   console.log('selection context menu', nodes);
@@ -125,7 +127,13 @@ const initialElements: Elements = [
   { id: 'e1-2', source: '1', target: '2', label: 'this is an edge label' },
   { id: 'e1-3', source: '1', target: '3' },
   { id: 'e3-4', source: '3', target: '4', animated: true, label: 'animated edge' },
-  { id: 'e4-5', source: '4', target: '5', arrowHeadType: ArrowHeadType.ArrowTarget, label: 'edge with arrow head' },
+  {
+    id: 'e4-5',
+    source: '4',
+    target: '5',
+    arrowHeadType: ArrowHeadType.ArrowTarget,
+    label: 'edge with arrow head',
+  },
   { id: 'e5-6', source: '5', target: '6', type: 'smoothstep', label: 'smooth step edge' },
   {
     id: 'e5-7',
@@ -159,7 +167,8 @@ const nodeColor = (n: Node): string => {
 
 const OverviewFlow = () => {
   const [elements, setElements] = useState(initialElements);
-  const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
+  const onElementsRemove = (elementsToRemove: Elements) =>
+    setElements((els) => removeElements(elementsToRemove, els));
   const onConnect = (params: Connection | Edge) => setElements((els) => addEdge(params, els));
 
   return (

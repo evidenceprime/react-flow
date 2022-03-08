@@ -16,7 +16,9 @@ import Sidebar from './Sidebar';
 
 import './dnd.css';
 
-const initialElements = [{ id: '1', type: 'input', data: { label: 'input node' }, position: { x: 250, y: 5 } }];
+const initialElements = [
+  { id: '1', type: 'input', data: { label: 'input node' }, position: { x: 250, y: 5 } },
+];
 
 const onDragOver = (event: DragEvent) => {
   event.preventDefault();
@@ -31,7 +33,8 @@ const DnDFlow = () => {
   const [elements, setElements] = useState<Elements>(initialElements);
 
   const onConnect = (params: Connection | Edge) => setElements((els) => addEdge(params, els));
-  const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
+  const onElementsRemove = (elementsToRemove: Elements) =>
+    setElements((els) => removeElements(elementsToRemove, els));
   const onLoad = (_reactFlowInstance: OnLoadParams) => setReactFlowInstance(_reactFlowInstance);
 
   const onDrop = (event: DragEvent) => {

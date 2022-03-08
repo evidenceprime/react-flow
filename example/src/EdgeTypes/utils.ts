@@ -54,7 +54,11 @@ const getNodeId = (): ElementId => (id++).toString();
 export function getElements(): Elements {
   const initialElements = [];
 
-  for (let sourceTargetIndex = 0; sourceTargetIndex < sourceTargetPositions.length; sourceTargetIndex++) {
+  for (
+    let sourceTargetIndex = 0;
+    sourceTargetIndex < sourceTargetPositions.length;
+    sourceTargetIndex++
+  ) {
     const currSourceTargetPos = sourceTargetPositions[sourceTargetIndex];
 
     for (let edgeTypeIndex = 0; edgeTypeIndex < edgeTypes.length; edgeTypeIndex++) {
@@ -97,7 +101,12 @@ export function getElements(): Elements {
         initialElements.push(sourceNode);
         initialElements.push(targetNode);
 
-        initialElements.push({ id: `${sourceId}-${targetId}`, source: sourceId, target: targetId, type: currEdgeType });
+        initialElements.push({
+          id: `${sourceId}-${targetId}`,
+          source: sourceId,
+          target: targetId,
+          type: currEdgeType,
+        });
       }
     }
   }

@@ -31,7 +31,8 @@ const initialElements: Elements = [
 const ProviderFlow = () => {
   const [elements, setElements] = useState<Elements>(initialElements);
   const onConnect = (params: Connection | Edge) => setElements((els) => addEdge(params, els));
-  const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
+  const onElementsRemove = (elementsToRemove: Elements) =>
+    setElements((els) => removeElements(elementsToRemove, els));
 
   return (
     <div className="providerflow">

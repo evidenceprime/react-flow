@@ -74,7 +74,10 @@ const UpdateNodeInternalsFlow = () => {
           return el;
         }
 
-        return { ...el, data: { ...el.data, handlePosition: el.data?.handlePosition === 0 ? 1 : 0 } };
+        return {
+          ...el,
+          data: { ...el.data, handlePosition: el.data?.handlePosition === 0 ? 1 : 0 },
+        };
       })
     );
   }, []);

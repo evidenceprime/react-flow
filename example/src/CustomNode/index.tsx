@@ -89,12 +89,27 @@ const CustomNodeFlow = () => {
       },
 
       { id: 'e1-2', source: '1', target: '2', animated: true, style: { stroke: '#fff' } },
-      { id: 'e2a-3', source: '2', sourceHandle: 'a', target: '3', animated: true, style: { stroke: '#fff' } },
-      { id: 'e2b-4', source: '2', sourceHandle: 'b', target: '4', animated: true, style: { stroke: '#fff' } },
+      {
+        id: 'e2a-3',
+        source: '2',
+        sourceHandle: 'a',
+        target: '3',
+        animated: true,
+        style: { stroke: '#fff' },
+      },
+      {
+        id: 'e2b-4',
+        source: '2',
+        sourceHandle: 'b',
+        target: '4',
+        animated: true,
+        style: { stroke: '#fff' },
+      },
     ]);
   }, []);
 
-  const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
+  const onElementsRemove = (elementsToRemove: Elements) =>
+    setElements((els) => removeElements(elementsToRemove, els));
   const onConnect = (params: Connection | Edge) =>
     setElements((els) => addEdge({ ...params, animated: true, style: { stroke: '#fff' } }, els));
 

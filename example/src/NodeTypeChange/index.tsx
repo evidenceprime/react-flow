@@ -1,6 +1,14 @@
 import React, { useState, CSSProperties } from 'react';
 
-import ReactFlow, { addEdge, isEdge, OnLoadParams, Elements, Position, Connection, Edge } from 'react-flow-renderer';
+import ReactFlow, {
+  addEdge,
+  isEdge,
+  OnLoadParams,
+  Elements,
+  Position,
+  Connection,
+  Edge,
+} from 'react-flow-renderer';
 
 const onLoad = (reactFlowInstance: OnLoadParams) => reactFlowInstance.fitView();
 

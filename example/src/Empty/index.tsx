@@ -24,7 +24,8 @@ const buttonStyle: CSSProperties = { position: 'absolute', left: 10, top: 10, zI
 
 const EmptyFlow = () => {
   const [elements, setElements] = useState<Elements>([]);
-  const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
+  const onElementsRemove = (elementsToRemove: Elements) =>
+    setElements((els) => removeElements(elementsToRemove, els));
   const onConnect = (params: Connection | Edge) => setElements((els) => addEdge(params, els));
   const addRandomNode = () => {
     const nodeId: ElementId = (elements.length + 1).toString();

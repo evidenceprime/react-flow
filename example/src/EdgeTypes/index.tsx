@@ -25,7 +25,8 @@ const initialElements = getElements();
 
 const EdgeTypesFlow = () => {
   const [elements, setElements] = useState<Elements>(initialElements);
-  const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
+  const onElementsRemove = (elementsToRemove: Elements) =>
+    setElements((els) => removeElements(elementsToRemove, els));
   const onConnect = (params: Connection | Edge) => setElements((els) => addEdge(params, els));
 
   return (

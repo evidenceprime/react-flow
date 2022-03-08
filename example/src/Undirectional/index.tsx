@@ -182,7 +182,9 @@ const getId = (): ElementId => `${id++}`;
 const UpdateNodeInternalsFlow = () => {
   const [elements, setElements] = useState<Elements>(initialElements);
   const onConnect = (params: Connection | Edge) =>
-    setElements((els) => addEdge({ ...params, type: 'smoothstep', arrowHeadType: ArrowHeadType.DoubleArrow }, els));
+    setElements((els) =>
+      addEdge({ ...params, type: 'smoothstep', arrowHeadType: ArrowHeadType.DoubleArrow }, els)
+    );
   const { project } = useZoomPanHelper();
   const onEdgeUpdate = (oldEdge: Edge, newConnection: Connection) =>
     setElements((els) => updateEdge(oldEdge, newConnection, els));

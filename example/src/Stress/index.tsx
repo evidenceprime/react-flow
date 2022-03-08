@@ -25,7 +25,8 @@ const initialElements: Elements = getElements(30, 30);
 
 const StressFlow = () => {
   const [elements, setElements] = useState<Elements>(initialElements);
-  const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
+  const onElementsRemove = (elementsToRemove: Elements) =>
+    setElements((els) => removeElements(elementsToRemove, els));
   const onConnect = (params: Connection | Edge) => setElements((els) => addEdge(params, els));
 
   const updatePos = () => {

@@ -29,7 +29,8 @@ const nodeExtent: NodeExtent = [
 const LayoutFlow = () => {
   const [elements, setElements] = useState<Elements>(initialElements);
   const onConnect = (params: Connection | Edge) => setElements((els) => addEdge(params, els));
-  const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
+  const onElementsRemove = (elementsToRemove: Elements) =>
+    setElements((els) => removeElements(elementsToRemove, els));
 
   const onLayout = (direction: string) => {
     const isHorizontal = direction === 'LR';
@@ -38,7 +39,7 @@ const LayoutFlow = () => {
     elements.forEach((el) => {
       if (isNode(el)) {
         dagreGraph.setNode(el.id, { width: 150, height: 50 });
-      } else if(isEdge(el)) {
+      } else if (isEdge(el)) {
         dagreGraph.setEdge(el.source, el.target);
       }
     });

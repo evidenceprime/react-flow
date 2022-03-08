@@ -22,7 +22,8 @@ const initialElements: Elements = [
 const SaveRestore = () => {
   const [rfInstance, setRfInstance] = useState<OnLoadParams>();
   const [elements, setElements] = useState<Elements>(initialElements);
-  const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
+  const onElementsRemove = (elementsToRemove: Elements) =>
+    setElements((els) => removeElements(elementsToRemove, els));
   const onConnect = (params: Connection | Edge) => setElements((els) => addEdge(params, els));
 
   return (

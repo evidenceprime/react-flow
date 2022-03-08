@@ -18,7 +18,13 @@ const onNodeDragStop = (_: MouseEvent, node: Node) => console.log('drag stop', n
 const onElementClick = (_: MouseEvent, element: FlowElement) => console.log('click', element);
 
 const initialElements: Elements = [
-  { id: '1', type: 'input', data: { label: 'Node 1' }, position: { x: 250, y: 5 }, className: 'light' },
+  {
+    id: '1',
+    type: 'input',
+    data: { label: 'Node 1' },
+    position: { x: 250, y: 5 },
+    className: 'light',
+  },
   { id: '2', data: { label: 'Node 2' }, position: { x: 100, y: 100 }, className: 'light' },
   { id: '3', data: { label: 'Node 3' }, position: { x: 400, y: 100 }, className: 'light' },
   { id: '4', data: { label: 'Node 4' }, position: { x: 400, y: 200 }, className: 'light' },
@@ -29,7 +35,8 @@ const initialElements: Elements = [
 const BasicFlow = () => {
   const [rfInstance, setRfInstance] = useState<OnLoadParams | null>(null);
   const [elements, setElements] = useState<Elements>(initialElements);
-  const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
+  const onElementsRemove = (elementsToRemove: Elements) =>
+    setElements((els) => removeElements(elementsToRemove, els));
   const onConnect = (params: Edge | Connection) => setElements((els) => addEdge(params, els));
   const onLoad = (reactFlowInstance: OnLoadParams) => setRfInstance(reactFlowInstance);
 

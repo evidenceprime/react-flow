@@ -18,7 +18,11 @@ export function getElements(xElements: number = 10, yElements: number = 10): Ele
       initialElements.push(node);
 
       if (recentNodeId && nodeId <= xElements * yElements) {
-        initialElements.push({ id: `${x}-${y}`, source: recentNodeId.toString(), target: nodeId.toString() });
+        initialElements.push({
+          id: `${x}-${y}`,
+          source: recentNodeId.toString(),
+          target: nodeId.toString(),
+        });
       }
 
       recentNodeId = nodeId;

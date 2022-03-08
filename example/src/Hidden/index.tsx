@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 
 import { useEffect } from 'react';
-import ReactFlow, { addEdge, MiniMap, Controls, Connection, Edge, Elements } from 'react-flow-renderer';
+import ReactFlow, {
+  addEdge,
+  MiniMap,
+  Controls,
+  Connection,
+  Edge,
+  Elements,
+} from 'react-flow-renderer';
 
 const initialElements: Elements = [
   { id: '1', type: 'input', data: { label: 'Node 1' }, position: { x: 250, y: 5 } },

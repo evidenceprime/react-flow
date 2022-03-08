@@ -99,39 +99,39 @@ const initialElements: Elements = [
     id: '7',
     type: 'output',
     data: { label: 'Another output node' },
-    position: { x: 400, y: 450 }
+    position: { x: 400, y: 450 },
   },
   {
     id: 'e1-2',
     source: '1',
     target: '2',
-    label: 'this is an edge label'
+    label: 'this is an edge label',
   },
   {
     id: 'e1-3',
     source: '1',
-    target: '3' 
+    target: '3',
   },
   {
     id: 'e3-4',
     source: '3',
     target: '4',
     animated: true,
-    label: 'animated edge'
+    label: 'animated edge',
   },
   {
     id: 'e4-5',
     source: '4',
     target: '5',
     arrowHeadType: ArrowHeadType.ArrowTarget,
-    label: 'edge with arrow head'
+    label: 'edge with arrow head',
   },
   {
     id: 'e5-6',
     source: '5',
     target: '6',
     type: 'smoothstep',
-    label: 'smooth step edge'
+    label: 'smooth step edge',
   },
   {
     id: 'e5-7',
@@ -146,7 +146,7 @@ const initialElements: Elements = [
   {
     id: 'section1',
     type: 'section',
-    data: { label: 'movable section', },
+    data: { label: 'movable section' },
     position: { x: -250, y: -200 },
   },
   {
@@ -156,7 +156,7 @@ const initialElements: Elements = [
       label: 'resizable section, non-movable',
       lockPosition: true,
       height: '500px',
-      background: '#DDD'
+      background: '#DDD',
     },
     position: { x: -250, y: 100 },
   },
@@ -182,7 +182,8 @@ const nodeColor = (n: Node): string => {
 
 const OverviewFlow = () => {
   const [elements, setElements] = useState(initialElements);
-  const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
+  const onElementsRemove = (elementsToRemove: Elements) =>
+    setElements((els) => removeElements(elementsToRemove, els));
   const onConnect = (params: Connection | Edge) => setElements((els) => addEdge(params, els));
 
   return (
@@ -201,11 +202,7 @@ const OverviewFlow = () => {
         maxZoom={1}
         onNodeResize={debounce((section, dimensions) => console.log(dimensions), 500)}
       >
-        <MiniMap
-          nodeStrokeColor={nodeStrokeColor}
-          nodeColor={nodeColor}
-          nodeBorderRadius={2}
-        />
+        <MiniMap nodeStrokeColor={nodeStrokeColor} nodeColor={nodeColor} nodeBorderRadius={2} />
         <Controls />
         <Background color="#aaa" gap={20} />
       </ReactFlow>

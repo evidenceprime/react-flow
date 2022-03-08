@@ -74,7 +74,11 @@ const UpdateNode = () => {
 
         <div className="updatenode__checkboxwrapper">
           <label>hidden:</label>
-          <input type="checkbox" checked={nodeHidden} onChange={(evt) => setNodeHidden(evt.target.checked)} />
+          <input
+            type="checkbox"
+            checked={nodeHidden}
+            onChange={(evt) => setNodeHidden(evt.target.checked)}
+          />
         </div>
       </div>
     </ReactFlow>

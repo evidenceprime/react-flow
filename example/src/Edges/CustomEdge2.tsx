@@ -1,5 +1,11 @@
 import { FC } from 'react';
-import { EdgeProps, getBezierPath, getMarkerEnd, EdgeText, getEdgeCenter } from 'react-flow-renderer';
+import {
+  EdgeProps,
+  getBezierPath,
+  getMarkerEnd,
+  EdgeText,
+  getEdgeCenter,
+} from 'react-flow-renderer';
 
 const CustomEdge: FC<EdgeProps> = ({
   id,
@@ -13,7 +19,14 @@ const CustomEdge: FC<EdgeProps> = ({
   arrowHeadType,
   markerEndId,
 }) => {
-  const edgePath = getBezierPath({ sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition });
+  const edgePath = getBezierPath({
+    sourceX,
+    sourceY,
+    sourcePosition,
+    targetX,
+    targetY,
+    targetPosition,
+  });
   const markerEnd = getMarkerEnd(arrowHeadType, markerEndId);
   const [centerX, centerY] = getEdgeCenter({
     sourceX,

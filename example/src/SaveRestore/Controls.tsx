@@ -44,7 +44,10 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements }) => {
     const newNode = {
       id: `random_node-${getNodeId()}`,
       data: { label: 'Added node' },
-      position: { x: Math.random() * window.innerWidth - 100, y: Math.random() * window.innerHeight },
+      position: {
+        x: Math.random() * window.innerWidth - 100,
+        y: Math.random() * window.innerHeight,
+      },
     };
     setElements((els) => els.concat(newNode));
   }, [setElements]);

@@ -58,7 +58,8 @@ const UpdatableEdge = () => {
   const onEdgeUpdate = (oldEdge: Edge, newConnection: Connection) =>
     setElements((els) => updateEdge(oldEdge, newConnection, els));
   const onConnect = (params: Connection | Edge) => setElements((els) => addEdge(params, els));
-  const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
+  const onElementsRemove = (elementsToRemove: Elements) =>
+    setElements((els) => removeElements(elementsToRemove, els));
 
   return (
     <ReactFlow
