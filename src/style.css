@@ -95,6 +95,7 @@
   user-select: none;
   pointer-events: all;
   transform-origin: 0 0;
+  line-height: 1;
 }
 
 .react-flow__nodesselection {
@@ -125,73 +126,73 @@
 .react-flow__handle-bottom {
   top: auto;
   left: 50%;
-  bottom: -6px;
+  bottom: -5px;
   transform: translate(-50%, 0);
 }
 
 .react-flow__handle-bottom-left {
   top: auto;
   left: 25%;
-  bottom: -6px;
+  bottom: -5px;
   transform: translate(-50%, 0);
 }
 
 .react-flow__handle-bottom-right {
   top: auto;
   left: 75%;
-  bottom: -6px;
+  bottom: -5px;
   transform: translate(-50%, 0);
 }
 
 .react-flow__handle-top {
   left: 50%;
-  top: -6px;
+  top: -5px;
   transform: translate(-50%, 0);
 }
 
 .react-flow__handle-top-left {
   left: 25%;
-  top: -6px;
+  top: -5px;
   transform: translate(-50%, 0);
 }
 .react-flow__handle-top-right {
   left: 75%;
-  top: -6px;
+  top: -5px;
   transform: translate(-50%, 0);
 }
 
 .react-flow__handle-left {
   top: 50%;
-  left: -6px;
+  left: -5px;
   transform: translate(0, -50%);
 }
 
 .react-flow__handle-left-top {
   top: 25%;
-  left: -6px;
+  left: -5px;
   transform: translate(0, -50%);
 }
 
 .react-flow__handle-left-bottom {
   top: 75%;
-  left: -6px;
+  left: -5px;
   transform: translate(0, -50%);
 }
 
 .react-flow__handle-right {
-  right: -6px;
+  right: -5px;
   top: 50%;
   transform: translate(0, -50%);
 }
 
 .react-flow__handle-right-top {
-  right: -6px;
+  right: -5px;
   top: 25%;
   transform: translate(0, -50%);
 }
 
 .react-flow__handle-right-bottom {
-  right: -6px;
+  right: -5px;
   top: 75%;
   transform: translate(0, -50%);
 }
@@ -302,6 +303,8 @@
 }
 
 .react-flow__node-breakpoint {
+  width: 20px;
+  height: 20px;
   border: 0;
 
   .react-flow__handle {
@@ -311,8 +314,8 @@
   &:hover {
     .react-flow__handle {
       visibility: initial;
-      width: 5px !important;
-      height: 5px !important;
+      width: 10px !important;
+      height: 10px !important;
     }
   }
 }
