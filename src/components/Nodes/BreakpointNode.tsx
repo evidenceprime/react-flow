@@ -3,22 +3,26 @@ import { isEmpty } from 'lodash/fp';
 import Handle from '../Handle';
 import { NodeProps, Position } from '../../types';
 
+const breakpointElementSize = 20;
+
 function getBreakpointPath(connectedHandlePositions: Position[]) {
-  if(isEmpty(connectedHandlePositions)) return "M 5 0 L 5 10 M 0 5 L 10 5 Z";
+  if(isEmpty(connectedHandlePositions)) {
+    return `M ${breakpointElementSize/2} 0 L ${breakpointElementSize/2} ${breakpointElementSize} M 0 ${breakpointElementSize/2} L ${breakpointElementSize} ${breakpointElementSize/2} Z`;
+  }
   let path: string = '';
   if (connectedHandlePositions.includes(Position.Top) && connectedHandlePositions.includes(Position.Bottom)) {
-    path += 'M 5 0 L 5 10 ';
+    path += `M ${breakpointElementSize/2} 0 L ${breakpointElementSize/2} ${breakpointElementSize} `;
   } else if (connectedHandlePositions.includes(Position.Top)) {
-    path += 'M 5 0 L 5 5 ';
+    path += `M ${breakpointElementSize/2} 0 L ${breakpointElementSize/2} ${breakpointElementSize/2} `;
   } else if (connectedHandlePositions.includes(Position.Bottom)) {
-    path += 'M 5 5 L 5 10 ';
+    path += `M ${breakpointElementSize/2} ${breakpointElementSize/2} L ${breakpointElementSize/2} ${breakpointElementSize} `;
   }
   if (connectedHandlePositions.includes(Position.Left) && connectedHandlePositions.includes(Position.Right)) {
-    path += 'M 0 5 L 0 10 ';
+    path += `M 0 ${breakpointElementSize/2} L ${breakpointElementSize} ${breakpointElementSize/2} `;
   } else if (connectedHandlePositions.includes(Position.Left)) {
-    path += 'M 0 5 L 5 5 ';
+    path += `M 0 ${breakpointElementSize/2} L ${breakpointElementSize/2} ${breakpointElementSize/2} `;
   } else if (connectedHandlePositions.includes(Position.Right)) {
-    path += 'M 5 5 L 10 5 ';
+    path += `M ${breakpointElementSize/2} ${breakpointElementSize/2} L ${breakpointElementSize} ${breakpointElementSize/2} `;
   }
   return path += 'Z';
 }
@@ -30,7 +34,7 @@ const BreakpointNode = ({
   const breakpointNodePath = getBreakpointPath(connectedHandlePositions ?? []);
   return (
     <>
-      <svg width="10px" height="10px">
+      <svg width="20px" height="20px" style={{ lineHeight: 1 }}>
         <path
           className="react-flow__edge-path"
           d={breakpointNodePath}
