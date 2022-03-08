@@ -56,11 +56,18 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
     const unsetNodesSelection = useStoreActions((actions) => actions.unsetNodesSelection);
 
     const edges = useStoreState((state) => state.edges);
-    const { incoming: edgesIncoming, outgoing: edgesOutgoing } = reduce<Edge, { incoming: Edge[], outgoing: Edge[] }>((acc, edge) => {
-      if(edge.source === id) acc.outgoing.push(edge);
-      if(edge.target === id) acc.incoming.push(edge);
-      return acc;
-    }, { incoming: [], outgoing: [] }, edges);
+    const { incoming: edgesIncoming, outgoing: edgesOutgoing } = reduce<
+      Edge,
+      { incoming: Edge[]; outgoing: Edge[] }
+    >(
+      (acc, edge) => {
+        if (edge.source === id) acc.outgoing.push(edge);
+        if (edge.target === id) acc.incoming.push(edge);
+        return acc;
+      },
+      { incoming: [], outgoing: [] },
+      edges
+    );
     const connectedHandlePositions = compose(
       uniq,
       concat(map('sourceHandle', edgesOutgoing)),
@@ -70,15 +77,23 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
     const nodeElement = useRef<HTMLDivElement>(null);
     const { shape, borderColor, background, fontColor } = data;
 
-    const node = useMemo(() => ({ id, type, position: { x: xPos, y: yPos }, data }), [id, type, xPos, yPos, data]);
-    const grid = useMemo(() => (snapToGrid ? snapGrid : [1, 1])! as [number, number], [snapToGrid, snapGrid]);
+    const node = useMemo(
+      () => ({ id, type, position: { x: xPos, y: yPos }, data }),
+      [id, type, xPos, yPos, data]
+    );
+    const grid = useMemo(
+      () => (snapToGrid ? snapGrid : [1, 1])! as [number, number],
+      [snapToGrid, snapGrid]
+    );
 
     const nodeStyle: CSSProperties = useMemo(
       () => ({
         zIndex: selected ? 10 : 3,
         transform: `translate(${xPos}px,${yPos}px)`,
         pointerEvents:
-          isSelectable || isDraggable || onClick || onMouseEnter || onMouseMove || onMouseLeave ? 'all' : 'none',
+          isSelectable || isDraggable || onClick || onMouseEnter || onMouseMove || onMouseLeave
+            ? 'all'
+            : 'none',
         // prevents jumping of nodes on start
         opacity: isInitialized ? 1 : 0,
         border: borderColor ? `1px solid ${borderColor}` : 'none',
@@ -247,7 +262,7 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
       {
         selected,
         selectable: isSelectable,
-        rounded: shape === 'rounded'
+        rounded: shape === 'rounded',
       },
     ]);
 

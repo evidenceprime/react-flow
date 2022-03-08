@@ -55,7 +55,13 @@ const EdgeText: FC<EdgeTextProps> = ({
           ry={labelBgBorderRadius}
         />
       )}
-      <text className="react-flow__edge-text" y={edgeTextBbox.height / 2} dy="0.3em" ref={edgeRef} style={labelStyle}>
+      <text
+        className="react-flow__edge-text"
+        y={edgeTextBbox.height / 2}
+        dy="0.3em"
+        ref={edgeRef}
+        style={labelStyle}
+      >
         {label}
       </text>
       {children}

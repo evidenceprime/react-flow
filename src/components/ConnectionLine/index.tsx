@@ -54,17 +54,24 @@ export default ({
   }
 
   const sourceHandle = handleId
-    ? sourceNode.__rf.handleBounds[connectionHandleType].find((d: HandleElement) => d.id === handleId)
+    ? sourceNode.__rf.handleBounds[connectionHandleType].find(
+        (d: HandleElement) => d.id === handleId
+      )
     : sourceNode.__rf.handleBounds[connectionHandleType][0];
-  const sourceHandleX = sourceHandle ? sourceHandle.x + sourceHandle.width / 2 : sourceNode.__rf.width / 2;
-  const sourceHandleY = sourceHandle ? sourceHandle.y + sourceHandle.height / 2 : sourceNode.__rf.height;
+  const sourceHandleX = sourceHandle
+    ? sourceHandle.x + sourceHandle.width / 2
+    : sourceNode.__rf.width / 2;
+  const sourceHandleY = sourceHandle
+    ? sourceHandle.y + sourceHandle.height / 2
+    : sourceNode.__rf.height;
   const sourceX = sourceNode.__rf.position.x + sourceHandleX;
   const sourceY = sourceNode.__rf.position.y + sourceHandleY;
 
   const targetX = (connectionPositionX - transform[0]) / transform[2];
   const targetY = (connectionPositionY - transform[1]) / transform[2];
 
-  const isRightOrLeft = sourceHandle?.position === Position.Left || sourceHandle?.position === Position.Right;
+  const isRightOrLeft =
+    sourceHandle?.position === Position.Left || sourceHandle?.position === Position.Right;
   const targetPosition = isRightOrLeft ? Position.Left : Position.Top;
 
   if (CustomConnectionLineComponent) {

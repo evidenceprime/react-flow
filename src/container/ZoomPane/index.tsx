@@ -80,12 +80,23 @@ const ZoomPane = ({
   useEffect(() => {
     if (zoomPane.current) {
       const state = store.getState();
-      const currentTranslateExtent = typeof translateExtent !== 'undefined' ? translateExtent : state.translateExtent;
-      const d3ZoomInstance = zoom().scaleExtent([state.minZoom, state.maxZoom]).translateExtent(currentTranslateExtent);
+      const currentTranslateExtent =
+        typeof translateExtent !== 'undefined' ? translateExtent : state.translateExtent;
+      const d3ZoomInstance = zoom()
+        .scaleExtent([state.minZoom, state.maxZoom])
+        .translateExtent(currentTranslateExtent);
       const selection = select(zoomPane.current as Element).call(d3ZoomInstance);
 
-      const clampedX = clamp(defaultPosition[0], currentTranslateExtent[0][0], currentTranslateExtent[1][0]);
-      const clampedY = clamp(defaultPosition[1], currentTranslateExtent[0][1], currentTranslateExtent[1][1]);
+      const clampedX = clamp(
+        defaultPosition[0],
+        currentTranslateExtent[0][0],
+        currentTranslateExtent[1][0]
+      );
+      const clampedY = clamp(
+        defaultPosition[1],
+        currentTranslateExtent[0][1],
+        currentTranslateExtent[1][1]
+      );
       const clampedZoom = clamp(defaultZoom, state.minZoom, state.maxZoom);
       const updatedTransform = zoomIdentity.translate(clampedX, clampedY).scale(clampedZoom);
 
@@ -117,7 +128,8 @@ const ZoomPane = ({
             if (event.ctrlKey && zoomOnPinch) {
               const point = pointer(event);
               // taken from https://github.com/d3/d3-zoom/blob/master/src/zoom.js
-              const pinchDelta = -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
+              const pinchDelta =
+                -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
               const zoom = currentZoom * Math.pow(2, pinchDelta);
               d3Zoom.scaleTo(d3Selection, zoom, point);
 
@@ -127,8 +139,10 @@ const ZoomPane = ({
             // increase scroll speed in firefox
             // firefox: deltaMode === 1; chrome: deltaMode === 0
             const deltaNormalize = event.deltaMode === 1 ? 20 : 1;
-            const deltaX = panOnScrollMode === PanOnScrollMode.Vertical ? 0 : event.deltaX * deltaNormalize;
-            const deltaY = panOnScrollMode === PanOnScrollMode.Horizontal ? 0 : event.deltaY * deltaNormalize;
+            const deltaX =
+              panOnScrollMode === PanOnScrollMode.Vertical ? 0 : event.deltaX * deltaNormalize;
+            const deltaY =
+              panOnScrollMode === PanOnScrollMode.Horizontal ? 0 : event.deltaY * deltaNormalize;
 
             d3Zoom.translateBy(
               d3Selection,
@@ -236,7 +250,8 @@ const ZoomPane = ({
 
         // when the target element is a node, we still allow zooming
         if (
-          (event.target.closest('.react-flow__node') || event.target.closest('.react-flow__edge')) &&
+          (event.target.closest('.react-flow__node') ||
+            event.target.closest('.react-flow__edge')) &&
           event.type !== 'wheel'
         ) {
           return false;

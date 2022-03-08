@@ -118,11 +118,18 @@ export function onMouseDown(
   const elementBelowIsTarget = elementBelow?.classList.contains('target');
   const elementBelowIsSource = elementBelow?.classList.contains('source');
 
-  if (!reactFlowNode || (!elementBelowIsTarget && !elementBelowIsSource && !elementEdgeUpdaterType)) {
+  if (
+    !reactFlowNode ||
+    (!elementBelowIsTarget && !elementBelowIsSource && !elementEdgeUpdaterType)
+  ) {
     return;
   }
 
-  const handleType = elementEdgeUpdaterType ? elementEdgeUpdaterType : elementBelowIsTarget ? 'target' : 'source';
+  const handleType = elementEdgeUpdaterType
+    ? elementEdgeUpdaterType
+    : elementBelowIsTarget
+    ? 'target'
+    : 'source';
   const containerBounds = reactFlowNode.getBoundingClientRect();
   let recentHoveredHandle: Element;
 
@@ -131,7 +138,11 @@ export function onMouseDown(
     y: event.clientY - containerBounds.top,
   });
 
-  setConnectionNodeId({ connectionNodeId: nodeId, connectionHandleId: handleId, connectionHandleType: handleType });
+  setConnectionNodeId({
+    connectionNodeId: nodeId,
+    connectionHandleId: handleId,
+    connectionHandleType: handleType,
+  });
   onConnectStart?.(event, { nodeId, handleId, handleType });
 
   function onMouseMove(event: MouseEvent) {
@@ -187,7 +198,11 @@ export function onMouseDown(
     }
 
     resetRecentHandle(recentHoveredHandle);
-    setConnectionNodeId({ connectionNodeId: null, connectionHandleId: null, connectionHandleType: null });
+    setConnectionNodeId({
+      connectionNodeId: null,
+      connectionHandleId: null,
+      connectionHandleType: null,
+    });
 
     doc.removeEventListener('mousemove', onMouseMove as EventListenerOrEventListenerObject);
     doc.removeEventListener('mouseup', onMouseUp as EventListenerOrEventListenerObject);

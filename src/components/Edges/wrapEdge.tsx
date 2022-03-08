@@ -162,7 +162,17 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
           _onEdgeUpdate
         );
       },
-      [id, source, target, type, sourceHandleId, targetHandleId, setConnectionNodeId, setPosition, edgeElement]
+      [
+        id,
+        source,
+        target,
+        type,
+        sourceHandleId,
+        targetHandleId,
+        setConnectionNodeId,
+        setPosition,
+        edgeElement,
+      ]
     );
 
     const onEdgeUpdaterSourceMouseDown = useCallback(
@@ -229,7 +239,12 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
             onMouseEnter={onEdgeUpdaterMouseEnter}
             onMouseOut={onEdgeUpdaterMouseOut}
           >
-            <EdgeAnchor position={sourcePosition} centerX={sourceX} centerY={sourceY} radius={edgeUpdaterRadius} />
+            <EdgeAnchor
+              position={sourcePosition}
+              centerX={sourceX}
+              centerY={sourceY}
+              radius={edgeUpdaterRadius}
+            />
           </g>
         )}
         {handleEdgeUpdate && (
@@ -238,7 +253,12 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
             onMouseEnter={onEdgeUpdaterMouseEnter}
             onMouseOut={onEdgeUpdaterMouseOut}
           >
-            <EdgeAnchor position={targetPosition} centerX={targetX} centerY={targetY} radius={edgeUpdaterRadius} />
+            <EdgeAnchor
+              position={targetPosition}
+              centerX={targetX}
+              centerY={targetY}
+              radius={edgeUpdaterRadius}
+            />
           </g>
         )}
       </g>

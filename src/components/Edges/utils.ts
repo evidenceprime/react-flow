@@ -5,8 +5,8 @@ export const getMarkerEnd = (arrowHeadType?: ArrowHeadType, markerEndId?: string
     return `url(#${markerEndId})`;
   }
   const isArrowHeadTypeTargetOrDouble =
-    (arrowHeadType === ArrowHeadType.ArrowTarget) || (arrowHeadType === ArrowHeadType.DoubleArrow);
-  
+    arrowHeadType === ArrowHeadType.ArrowTarget || arrowHeadType === ArrowHeadType.DoubleArrow;
+
   return typeof arrowHeadType !== 'undefined' && isArrowHeadTypeTargetOrDouble
     ? `url(#react-flow__${ArrowHeadType.ArrowTarget})`
     : 'none';
@@ -18,7 +18,7 @@ export const getMarkerStart = (arrowHeadType?: ArrowHeadType, markerStartId?: st
   }
 
   const isArrowHeadTypeSourceOrDouble =
-    (arrowHeadType === ArrowHeadType.ArrowSource) || (arrowHeadType === ArrowHeadType.DoubleArrow);
+    arrowHeadType === ArrowHeadType.ArrowSource || arrowHeadType === ArrowHeadType.DoubleArrow;
 
   return typeof arrowHeadType !== 'undefined' && isArrowHeadTypeSourceOrDouble
     ? `url(#react-flow__${ArrowHeadType.ArrowSource})`
@@ -49,7 +49,8 @@ export const getCenter = ({
 
   // we expect flows to be horizontal or vertical (all handles left or right respectively top or bottom)
   // a mixed edge is when one the source is on the left and the target is on the top for example.
-  const mixedEdge = (sourceIsLeftOrRight && !targetIsLeftOrRight) || (targetIsLeftOrRight && !sourceIsLeftOrRight);
+  const mixedEdge =
+    (sourceIsLeftOrRight && !targetIsLeftOrRight) || (targetIsLeftOrRight && !sourceIsLeftOrRight);
 
   if (mixedEdge) {
     const xOffset = sourceIsLeftOrRight ? Math.abs(targetX - sourceX) : 0;

@@ -10,7 +10,13 @@ import useZoomPanHelper from '../../hooks/useZoomPanHelper';
 
 import { ReactFlowProps } from '../ReactFlow';
 
-import { NodeTypesType, EdgeTypesType, ConnectionLineType, KeyCode, SectionTypesType } from '../../types';
+import {
+  NodeTypesType,
+  EdgeTypesType,
+  ConnectionLineType,
+  KeyCode,
+  SectionTypesType,
+} from '../../types';
 
 export interface GraphViewProps extends Omit<ReactFlowProps, 'onSelectionChange' | 'elements'> {
   nodeTypes: NodeTypesType;
@@ -254,43 +260,43 @@ const GraphView = ({
       onNodeResize={onNodeResize}
     >
       {/* {false && <> */}
-        <NodeRenderer
-          nodeTypes={nodeTypes}
-          onElementClick={onElementClick}
-          onNodeDoubleClick={onNodeDoubleClick}
-          onNodeMouseEnter={onNodeMouseEnter}
-          onNodeMouseMove={onNodeMouseMove}
-          onNodeMouseLeave={onNodeMouseLeave}
-          onNodeContextMenu={onNodeContextMenu}
-          onNodeDragStop={onNodeDragStop}
-          onNodeDrag={onNodeDrag}
-          onNodeDragStart={onNodeDragStart}
-          selectNodesOnDrag={selectNodesOnDrag}
-          snapToGrid={snapToGrid}
-          snapGrid={snapGrid}
-          onlyRenderVisibleElements={onlyRenderVisibleElements}
-        />
-        <EdgeRenderer
-          edgeTypes={edgeTypes}
-          onElementClick={onElementClick}
-          onEdgeDoubleClick={onEdgeDoubleClick}
-          connectionLineType={connectionLineType}
-          connectionLineStyle={connectionLineStyle}
-          connectionLineComponent={connectionLineComponent}
-          connectionMode={connectionMode}
-          arrowHeadColor={arrowHeadColor}
-          markerStartId={markerStartId}
-          markerEndId={markerEndId}
-          onEdgeUpdate={onEdgeUpdate}
-          onlyRenderVisibleElements={onlyRenderVisibleElements}
-          onEdgeContextMenu={onEdgeContextMenu}
-          onEdgeMouseEnter={onEdgeMouseEnter}
-          onEdgeMouseMove={onEdgeMouseMove}
-          onEdgeMouseLeave={onEdgeMouseLeave}
-          onEdgeUpdateStart={onEdgeUpdateStart}
-          onEdgeUpdateEnd={onEdgeUpdateEnd}
-          edgeUpdaterRadius={edgeUpdaterRadius}
-        />
+      <NodeRenderer
+        nodeTypes={nodeTypes}
+        onElementClick={onElementClick}
+        onNodeDoubleClick={onNodeDoubleClick}
+        onNodeMouseEnter={onNodeMouseEnter}
+        onNodeMouseMove={onNodeMouseMove}
+        onNodeMouseLeave={onNodeMouseLeave}
+        onNodeContextMenu={onNodeContextMenu}
+        onNodeDragStop={onNodeDragStop}
+        onNodeDrag={onNodeDrag}
+        onNodeDragStart={onNodeDragStart}
+        selectNodesOnDrag={selectNodesOnDrag}
+        snapToGrid={snapToGrid}
+        snapGrid={snapGrid}
+        onlyRenderVisibleElements={onlyRenderVisibleElements}
+      />
+      <EdgeRenderer
+        edgeTypes={edgeTypes}
+        onElementClick={onElementClick}
+        onEdgeDoubleClick={onEdgeDoubleClick}
+        connectionLineType={connectionLineType}
+        connectionLineStyle={connectionLineStyle}
+        connectionLineComponent={connectionLineComponent}
+        connectionMode={connectionMode}
+        arrowHeadColor={arrowHeadColor}
+        markerStartId={markerStartId}
+        markerEndId={markerEndId}
+        onEdgeUpdate={onEdgeUpdate}
+        onlyRenderVisibleElements={onlyRenderVisibleElements}
+        onEdgeContextMenu={onEdgeContextMenu}
+        onEdgeMouseEnter={onEdgeMouseEnter}
+        onEdgeMouseMove={onEdgeMouseMove}
+        onEdgeMouseLeave={onEdgeMouseLeave}
+        onEdgeUpdateStart={onEdgeUpdateStart}
+        onEdgeUpdateEnd={onEdgeUpdateEnd}
+        edgeUpdaterRadius={edgeUpdaterRadius}
+      />
       {/* </>} */}
       <SectionRenderer
         sectionTypes={sectionTypes}

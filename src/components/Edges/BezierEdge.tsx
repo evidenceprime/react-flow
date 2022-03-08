@@ -63,7 +63,14 @@ export default memo(
     arrowHeadType,
     markerEndId,
   }: EdgeProps) => {
-    const [centerX, centerY] = getCenter({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition });
+    const [centerX, centerY] = getCenter({
+      sourceX,
+      sourceY,
+      targetX,
+      targetY,
+      sourcePosition,
+      targetPosition,
+    });
     const path = getBezierPath({
       sourceX,
       sourceY,

@@ -15,8 +15,12 @@ import { ReactFlowState } from '../types';
 export const useTypedSelector: TypedUseSelectorHook<ReactFlowState> = useSelector;
 
 export type ActionCreatorSelector<Action> = (acts: typeof actions) => ActionCreator<Action>;
-export type ActionMapObjectSelector<Action> = (acts: typeof actions) => ActionCreatorsMapObject<Action>;
-export type ActionSelector<Action> = (acts: typeof actions) => ActionCreatorsMapObject<Action> | ActionCreator<Action>;
+export type ActionMapObjectSelector<Action> = (
+  acts: typeof actions
+) => ActionCreatorsMapObject<Action>;
+export type ActionSelector<Action> = (
+  acts: typeof actions
+) => ActionCreatorsMapObject<Action> | ActionCreator<Action>;
 
 export function useStoreActions<Action extends ReactFlowAction>(
   actionSelector: ActionCreatorSelector<Action>
@@ -26,7 +30,9 @@ export function useStoreActions<Action extends ReactFlowAction>(
   actionSelector: ActionMapObjectSelector<Action>
 ): ActionCreatorsMapObject<Action>;
 
-export function useStoreActions<Action extends ReactFlowAction>(actionSelector: ActionSelector<Action>) {
+export function useStoreActions<Action extends ReactFlowAction>(
+  actionSelector: ActionSelector<Action>
+) {
   const dispatch: ReactFlowDispatch = reduxUseDispatch();
   const currAction = actionSelector(actions);
 

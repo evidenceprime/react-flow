@@ -16,7 +16,7 @@ import {
   OutputNode,
   UnidirectionalNode,
   BreakpointNode,
-} from '../../components/Nodes'
+} from '../../components/Nodes';
 import { createNodeTypes } from '../NodeRenderer/utils';
 import DefaultSection from '../../components/Sections/DefaultSection';
 import { createSectionTypes } from '../SectionRenderer/utils';
@@ -56,7 +56,7 @@ const defaultNodeTypes = {
   default: DefaultNode,
   output: OutputNode,
   unidirectional: UnidirectionalNode,
-  breakpoint: BreakpointNode
+  breakpoint: BreakpointNode,
 };
 
 const defaultEdgeTypes = {
@@ -69,7 +69,7 @@ const defaultEdgeTypes = {
 const defaultSectionTypes = {
   default: DefaultSection,
   section: DefaultSection,
-}
+};
 
 export interface ReactFlowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onLoad'> {
   elements: Elements;

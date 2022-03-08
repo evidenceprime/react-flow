@@ -36,7 +36,7 @@ const SectionRenderer = (props: SectionRendererProps) => {
   const transformAndZIndexStyle = useMemo(
     () => ({
       transform: `translate(${transform[0]}px,${transform[1]}px) scale(${transform[2]})`,
-      zIndex: 2
+      zIndex: 2,
     }),
     [transform[0], transform[1], transform[2]]
   );
@@ -63,14 +63,21 @@ const SectionRenderer = (props: SectionRendererProps) => {
     <div className="react-flow__nodes" style={transformAndZIndexStyle}>
       {visibleSections.map((section) => {
         const sectionType = section.type || 'default';
-        const SectionComponent = (props.sectionTypes[sectionType] || props.sectionTypes.default) as ComponentType<WrapSectionProps>;
+        const SectionComponent = (props.sectionTypes[sectionType] ||
+          props.sectionTypes.default) as ComponentType<WrapSectionProps>;
 
         if (!props.sectionTypes[sectionType]) {
           console.warn(`Section type "${sectionType}" not found. Using fallback type "default".`);
         }
 
-        const isDraggable = !!(section.draggable || (nodesDraggable && typeof section.draggable === 'undefined'));
-        const isSelectable = !!(section.selectable || (elementsSelectable && typeof section.selectable === 'undefined'));
+        const isDraggable = !!(
+          section.draggable ||
+          (nodesDraggable && typeof section.draggable === 'undefined')
+        );
+        const isSelectable = !!(
+          section.selectable ||
+          (elementsSelectable && typeof section.selectable === 'undefined')
+        );
 
         return (
           <SectionComponent

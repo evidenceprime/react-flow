@@ -26,7 +26,10 @@ type NextElements = {
   nextSections: Section[];
 };
 
-export default function reactFlowReducer(state = initialState, action: ReactFlowAction): ReactFlowState {
+export default function reactFlowReducer(
+  state = initialState,
+  action: ReactFlowAction
+): ReactFlowState {
   switch (action.type) {
     case constants.SET_ELEMENTS: {
       const propElements = action.payload;
@@ -35,68 +38,79 @@ export default function reactFlowReducer(state = initialState, action: ReactFlow
         nextEdges: [],
         nextSections: [],
       };
-      const { nextNodes, nextEdges, nextSections } = propElements.reduce((res, propElement): NextElements => {
-        if (isSection(propElement)) {
-          const storeSection = state.sections.find((section) => section.id === propElement.id);
-          if (storeSection) {
-            const updatedSection: Section = {
-              ...storeSection,
-              ...propElement
-            }
+      const { nextNodes, nextEdges, nextSections } = propElements.reduce(
+        (res, propElement): NextElements => {
+          if (isSection(propElement)) {
+            const storeSection = state.sections.find((section) => section.id === propElement.id);
+            if (storeSection) {
+              const updatedSection: Section = {
+                ...storeSection,
+                ...propElement,
+              };
 
-            if (storeSection.position.x !== propElement.position.x || storeSection.position.y !== propElement.position.y) {
-              updatedSection.__rf.Position = propElement.position;
-            }
+              if (
+                storeSection.position.x !== propElement.position.x ||
+                storeSection.position.y !== propElement.position.y
+              ) {
+                updatedSection.__rf.Position = propElement.position;
+              }
 
-            if (typeof propElement.type !== 'undefined' && propElement.type !== storeSection.type) {
-              // we reset the elements dimensions here in order to force a re-calculation of the bounds.
-              // When the type of a node changes it is possible that the number or positions of handles changes too.
-              updatedSection.__rf.width = null;
-            }
+              if (
+                typeof propElement.type !== 'undefined' &&
+                propElement.type !== storeSection.type
+              ) {
+                // we reset the elements dimensions here in order to force a re-calculation of the bounds.
+                // When the type of a node changes it is possible that the number or positions of handles changes too.
+                updatedSection.__rf.width = null;
+              }
 
-            res.nextSections.push(updatedSection);
-          } else {
-            res.nextSections.push(parseSection(propElement, state.sectionExtent));
+              res.nextSections.push(updatedSection);
+            } else {
+              res.nextSections.push(parseSection(propElement, state.sectionExtent));
+            }
+          } else if (isNode(propElement)) {
+            const storeNode = state.nodes.find((node) => node.id === propElement.id);
+
+            if (storeNode) {
+              const updatedNode: Node = {
+                ...storeNode,
+                ...propElement,
+              };
+
+              if (
+                storeNode.position.x !== propElement.position.x ||
+                storeNode.position.y !== propElement.position.y
+              ) {
+                updatedNode.__rf.position = propElement.position;
+              }
+
+              if (typeof propElement.type !== 'undefined' && propElement.type !== storeNode.type) {
+                // we reset the elements dimensions here in order to force a re-calculation of the bounds.
+                // When the type of a node changes it is possible that the number or positions of handles changes too.
+                updatedNode.__rf.width = null;
+              }
+
+              res.nextNodes.push(updatedNode);
+            } else {
+              res.nextNodes.push(parseNode(propElement, state.nodeExtent));
+            }
+          } else if (isEdge(propElement)) {
+            const storeEdge = state.edges.find((se) => se.id === propElement.id);
+
+            if (storeEdge) {
+              res.nextEdges.push({
+                ...storeEdge,
+                ...propElement,
+              });
+            } else {
+              res.nextEdges.push(parseEdge(propElement));
+            }
           }
-          
-        } else if (isNode(propElement)) {
-          const storeNode = state.nodes.find((node) => node.id === propElement.id);
 
-          if (storeNode) {
-            const updatedNode: Node = {
-              ...storeNode,
-              ...propElement,
-            };
-
-            if (storeNode.position.x !== propElement.position.x || storeNode.position.y !== propElement.position.y) {
-              updatedNode.__rf.position = propElement.position;
-            }
-
-            if (typeof propElement.type !== 'undefined' && propElement.type !== storeNode.type) {
-              // we reset the elements dimensions here in order to force a re-calculation of the bounds.
-              // When the type of a node changes it is possible that the number or positions of handles changes too.
-              updatedNode.__rf.width = null;
-            }
-
-            res.nextNodes.push(updatedNode);
-          } else {
-            res.nextNodes.push(parseNode(propElement, state.nodeExtent));
-          }
-        } else if (isEdge(propElement)) {
-          const storeEdge = state.edges.find((se) => se.id === propElement.id);
-
-          if (storeEdge) {
-            res.nextEdges.push({
-              ...storeEdge,
-              ...propElement,
-            });
-          } else {
-            res.nextEdges.push(parseEdge(propElement));
-          }
-        }
-
-        return res;
-      }, nextElements);
+          return res;
+        },
+        nextElements
+      );
 
       return { ...state, nodes: nextNodes, edges: nextEdges, sections: nextSections };
     }
@@ -108,7 +122,9 @@ export default function reactFlowReducer(state = initialState, action: ReactFlow
           const doUpdate =
             dimensions.width &&
             dimensions.height &&
-            (node.__rf.width !== dimensions.width || node.__rf.height !== dimensions.height || update.forceUpdate);
+            (node.__rf.width !== dimensions.width ||
+              node.__rf.height !== dimensions.height ||
+              update.forceUpdate);
 
           if (doUpdate) {
             const handleBounds = getHandleBounds(update.nodeElement, state.transform[2]);
@@ -134,15 +150,17 @@ export default function reactFlowReducer(state = initialState, action: ReactFlow
           const snapGrid = update.snapGrid ?? [1, 1];
           const updatedDimensions = {
             width: Math.floor(dimensions.width / snapGrid[0]) * snapGrid[0],
-            height: Math.floor(dimensions.height / snapGrid[1]) * snapGrid[1]
-          }
+            height: Math.floor(dimensions.height / snapGrid[1]) * snapGrid[1],
+          };
           const doUpdate =
             dimensions.width &&
             dimensions.height &&
-            (section.__rf.width !== dimensions.width || section.__rf.height !== dimensions.height || update.forceUpdate);
+            (section.__rf.width !== dimensions.width ||
+              section.__rf.height !== dimensions.height ||
+              update.forceUpdate);
 
           if (doUpdate) {
-            const handleBounds = getHandleBounds(update.nodeElement, state.transform[2]);  
+            const handleBounds = getHandleBounds(update.nodeElement, state.transform[2]);
             return {
               ...section,
               __rf: {
@@ -153,7 +171,7 @@ export default function reactFlowReducer(state = initialState, action: ReactFlow
               style: {
                 ...section.style,
                 ...updatedDimensions,
-              }
+              },
             };
           }
         }
@@ -163,7 +181,7 @@ export default function reactFlowReducer(state = initialState, action: ReactFlow
       return {
         ...state,
         nodes: updatedNodes,
-        sections: updatedSections
+        sections: updatedSections,
       };
     }
     case constants.UPDATE_NODE_POS: {
@@ -275,7 +293,13 @@ export default function reactFlowReducer(state = initialState, action: ReactFlow
         height: Math.abs(mousePos.y - startY),
       };
 
-      const selectedNodes = getNodesInside(state.nodes, nextUserSelectRect, state.transform, false, true);
+      const selectedNodes = getNodesInside(
+        state.nodes,
+        nextUserSelectRect,
+        state.transform,
+        false,
+        true
+      );
       const selectedEdges = getConnectedEdges(selectedNodes, state.edges);
 
       const nextSelectedElements = [...selectedNodes, ...selectedEdges];
@@ -293,7 +317,9 @@ export default function reactFlowReducer(state = initialState, action: ReactFlow
       };
     }
     case constants.UNSET_USER_SELECTION: {
-      const selectedNodes = state.selectedElements?.filter((node) => isNode(node) && node.__rf) as Node[];
+      const selectedNodes = state.selectedElements?.filter(
+        (node) => isNode(node) && node.__rf
+      ) as Node[];
 
       const stateUpdate = {
         ...state,
@@ -319,7 +345,9 @@ export default function reactFlowReducer(state = initialState, action: ReactFlow
       const elements = action.payload;
       const selectedElementsArr = Array.isArray(elements) ? elements : [elements];
       const selectedElementsUpdated = !isEqual(selectedElementsArr, state.selectedElements);
-      const selectedElements = selectedElementsUpdated ? selectedElementsArr : state.selectedElements;
+      const selectedElements = selectedElementsUpdated
+        ? selectedElementsArr
+        : state.selectedElements;
 
       return {
         ...state,
@@ -334,7 +362,9 @@ export default function reactFlowReducer(state = initialState, action: ReactFlow
       let nextElements = selectedElementsArr;
 
       if (multiSelectionActive) {
-        nextElements = selectedElements ? [...selectedElements, ...selectedElementsArr] : selectedElementsArr;
+        nextElements = selectedElements
+          ? [...selectedElements, ...selectedElementsArr]
+          : selectedElementsArr;
       }
 
       const selectedElementsUpdated = !isEqual(nextElements, state.selectedElements);

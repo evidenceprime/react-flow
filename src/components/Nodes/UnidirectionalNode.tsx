@@ -3,14 +3,15 @@ import React, { memo } from 'react';
 import Handle from '../Handle';
 import { NodeProps, Position } from '../../types';
 
-const UnidirectionalNode = ({
-  data,
-  isConnectable
-}: NodeProps) => {
-  const label = data.hyperlink
-    ? <a href={data.hyperlink} target="_blank">{data.label}</a>
-    : data.label;
-  
+const UnidirectionalNode = ({ data, isConnectable }: NodeProps) => {
+  const label = data.hyperlink ? (
+    <a href={data.hyperlink} target="_blank">
+      {data.label}
+    </a>
+  ) : (
+    data.label
+  );
+
   return (
     <>
       {label}
@@ -90,7 +91,7 @@ const UnidirectionalNode = ({
         isConnectable={isConnectable}
       />
     </>
-  )
+  );
 };
 
 UnidirectionalNode.displayName = 'UnidirectionalNode';

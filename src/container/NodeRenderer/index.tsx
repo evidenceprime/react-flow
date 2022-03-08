@@ -61,15 +61,25 @@ const NodeRenderer = (props: NodeRendererProps) => {
     <div className="react-flow__nodes" style={transformStyle}>
       {visibleNodes.map((node) => {
         const nodeType = node.type || 'default';
-        const NodeComponent = (props.nodeTypes[nodeType] || props.nodeTypes.default) as ComponentType<WrapNodeProps>;
+        const NodeComponent = (props.nodeTypes[nodeType] ||
+          props.nodeTypes.default) as ComponentType<WrapNodeProps>;
 
         if (!props.nodeTypes[nodeType]) {
           console.warn(`Node type "${nodeType}" not found. Using fallback type "default".`);
         }
 
-        const isDraggable = !!(node.draggable || (nodesDraggable && typeof node.draggable === 'undefined'));
-        const isSelectable = !!(node.selectable || (elementsSelectable && typeof node.selectable === 'undefined'));
-        const isConnectable = !!(node.connectable || (nodesConnectable && typeof node.connectable === 'undefined'));
+        const isDraggable = !!(
+          node.draggable ||
+          (nodesDraggable && typeof node.draggable === 'undefined')
+        );
+        const isSelectable = !!(
+          node.selectable ||
+          (elementsSelectable && typeof node.selectable === 'undefined')
+        );
+        const isConnectable = !!(
+          node.connectable ||
+          (nodesConnectable && typeof node.connectable === 'undefined')
+        );
 
         return (
           <NodeComponent

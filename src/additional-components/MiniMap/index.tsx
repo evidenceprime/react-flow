@@ -41,10 +41,12 @@ const MiniMap = ({
   const elementWidth = (style?.width || defaultWidth)! as number;
   const elementHeight = (style?.height || defaultHeight)! as number;
   const nodeColorFunc = (nodeColor instanceof Function ? nodeColor : () => nodeColor) as StringFunc;
-  const nodeStrokeColorFunc = (nodeStrokeColor instanceof Function
-    ? nodeStrokeColor
-    : () => nodeStrokeColor) as StringFunc;
-  const nodeClassNameFunc = (nodeClassName instanceof Function ? nodeClassName : () => nodeClassName) as StringFunc;
+  const nodeStrokeColorFunc = (
+    nodeStrokeColor instanceof Function ? nodeStrokeColor : () => nodeStrokeColor
+  ) as StringFunc;
+  const nodeClassNameFunc = (
+    nodeClassName instanceof Function ? nodeClassName : () => nodeClassName
+  ) as StringFunc;
   const hasNodes = nodes && nodes.length;
   const bb = getRectOfNodes(nodes);
   const viewBB: Rect = {
@@ -64,7 +66,8 @@ const MiniMap = ({
   const y = boundingRect.y - (viewHeight - boundingRect.height) / 2 - offset;
   const width = viewWidth + offset * 2;
   const height = viewHeight + offset * 2;
-  const shapeRendering = (typeof window === "undefined" || !!window.chrome) ?  "crispEdges" : "geometricPrecision";
+  const shapeRendering =
+    typeof window === 'undefined' || !!window.chrome ? 'crispEdges' : 'geometricPrecision';
 
   return (
     <svg
@@ -94,7 +97,9 @@ const MiniMap = ({
         ))}
       <path
         className="react-flow__minimap-mask"
-        d={`M${x - offset},${y - offset}h${width + offset * 2}v${height + offset * 2}h${-width - offset * 2}z
+        d={`M${x - offset},${y - offset}h${width + offset * 2}v${height + offset * 2}h${
+          -width - offset * 2
+        }z
         M${viewBB.x},${viewBB.y}h${viewBB.width}v${viewBB.height}h${-viewBB.width}z`}
         fill={maskColor}
         fillRule="evenodd"

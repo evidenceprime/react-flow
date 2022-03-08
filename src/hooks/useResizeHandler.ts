@@ -17,7 +17,9 @@ export default (rendererNode: MutableRefObject<HTMLDivElement | null>) => {
       const size = getDimensions(rendererNode.current);
 
       if (size.height === 0 || size.width === 0) {
-        console.warn('The React Flow parent container needs a width and a height to render the graph.');
+        console.warn(
+          'The React Flow parent container needs a width and a height to render the graph.'
+        );
       }
 
       updateSize(size);

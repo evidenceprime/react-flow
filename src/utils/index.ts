@@ -7,7 +7,8 @@ export const isInputDOMNode = (e: ReactMouseEvent | DraggableEvent | KeyboardEve
   const target = e?.target as HTMLElement;
 
   return (
-    ['INPUT', 'SELECT', 'TEXTAREA', 'BUTTON'].includes(target?.nodeName) || target?.hasAttribute('contenteditable')
+    ['INPUT', 'SELECT', 'TEXTAREA', 'BUTTON'].includes(target?.nodeName) ||
+    target?.hasAttribute('contenteditable')
   );
 };
 
@@ -16,7 +17,8 @@ export const getDimensions = (node: HTMLDivElement): Dimensions => ({
   height: node.offsetHeight,
 });
 
-export const clamp = (val: number, min: number = 0, max: number = 1): number => Math.min(Math.max(val, min), max);
+export const clamp = (val: number, min: number = 0, max: number = 1): number =>
+  Math.min(Math.max(val, min), max);
 
 export const clampPosition = (position: XYPosition, extent: NodeExtent) => ({
   x: clamp(position.x, extent[0][0], extent[1][0]),

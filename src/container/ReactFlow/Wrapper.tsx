@@ -5,9 +5,10 @@ import store from '../../store';
 
 const Wrapper: FC = ({ children }) => {
   const contextValue = useContext(ReactReduxContext);
-  const isWrappedWithReactFlowProvider = useMemo(() => contextValue?.store?.getState()?.reactFlowVersion, [
-    contextValue,
-  ]);
+  const isWrappedWithReactFlowProvider = useMemo(
+    () => contextValue?.store?.getState()?.reactFlowVersion,
+    [contextValue]
+  );
 
   if (isWrappedWithReactFlowProvider) {
     // we need to wrap it with a fragment because it's not allowed for children to be a ReactNode

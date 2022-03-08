@@ -16,10 +16,14 @@ const bottomRightCorner = (x: number, y: number, size: number): string =>
   `L ${x},${y - size}Q ${x},${y} ${x - size},${y}`;
 const rightBottomCorner = (x: number, y: number, size: number): string =>
   `L ${x - size},${y}Q ${x},${y} ${x},${y - size}`;
-const leftTopCorner = (x: number, y: number, size: number): string => `L ${x + size},${y}Q ${x},${y} ${x},${y + size}`;
-const topLeftCorner = (x: number, y: number, size: number): string => `L ${x},${y + size}Q ${x},${y} ${x + size},${y}`;
-const topRightCorner = (x: number, y: number, size: number): string => `L ${x},${y + size}Q ${x},${y} ${x - size},${y}`;
-const rightTopCorner = (x: number, y: number, size: number): string => `L ${x - size},${y}Q ${x},${y} ${x},${y + size}`;
+const leftTopCorner = (x: number, y: number, size: number): string =>
+  `L ${x + size},${y}Q ${x},${y} ${x},${y + size}`;
+const topLeftCorner = (x: number, y: number, size: number): string =>
+  `L ${x},${y + size}Q ${x},${y} ${x + size},${y}`;
+const topRightCorner = (x: number, y: number, size: number): string =>
+  `L ${x},${y + size}Q ${x},${y} ${x - size},${y}`;
+const rightTopCorner = (x: number, y: number, size: number): string =>
+  `L ${x - size},${y}Q ${x},${y} ${x},${y + size}`;
 
 interface GetSmoothStepPathParams {
   sourceX: number;
@@ -54,7 +58,7 @@ export function getSmoothStepPath({
     Position.LeftBottom,
     Position.RightTop,
     Position.Right,
-    Position.RightBottom
+    Position.RightBottom,
   ];
   const cX = typeof centerX !== 'undefined' ? centerX : _centerX;
   const cY = typeof centerY !== 'undefined' ? centerY : _centerY;
@@ -64,32 +68,47 @@ export function getSmoothStepPath({
 
   if (sourceX <= targetX) {
     firstCornerPath =
-      sourceY <= targetY ? bottomLeftCorner(sourceX, cY, cornerSize) : topLeftCorner(sourceX, cY, cornerSize);
+      sourceY <= targetY
+        ? bottomLeftCorner(sourceX, cY, cornerSize)
+        : topLeftCorner(sourceX, cY, cornerSize);
     secondCornerPath =
-      sourceY <= targetY ? rightTopCorner(targetX, cY, cornerSize) : rightBottomCorner(targetX, cY, cornerSize);
+      sourceY <= targetY
+        ? rightTopCorner(targetX, cY, cornerSize)
+        : rightBottomCorner(targetX, cY, cornerSize);
   } else {
     firstCornerPath =
-      sourceY < targetY ? bottomRightCorner(sourceX, cY, cornerSize) : topRightCorner(sourceX, cY, cornerSize);
+      sourceY < targetY
+        ? bottomRightCorner(sourceX, cY, cornerSize)
+        : topRightCorner(sourceX, cY, cornerSize);
     secondCornerPath =
-      sourceY < targetY ? leftTopCorner(targetX, cY, cornerSize) : leftBottomCorner(targetX, cY, cornerSize);
+      sourceY < targetY
+        ? leftTopCorner(targetX, cY, cornerSize)
+        : leftBottomCorner(targetX, cY, cornerSize);
   }
 
   if (leftAndRight.includes(sourcePosition) && leftAndRight.includes(targetPosition)) {
     if (sourceX <= targetX) {
       firstCornerPath =
-        sourceY <= targetY ? rightTopCorner(cX, sourceY, cornerSize) : rightBottomCorner(cX, sourceY, cornerSize);
+        sourceY <= targetY
+          ? rightTopCorner(cX, sourceY, cornerSize)
+          : rightBottomCorner(cX, sourceY, cornerSize);
       secondCornerPath =
-        sourceY <= targetY ? bottomLeftCorner(cX, targetY, cornerSize) : topLeftCorner(cX, targetY, cornerSize);
+        sourceY <= targetY
+          ? bottomLeftCorner(cX, targetY, cornerSize)
+          : topLeftCorner(cX, targetY, cornerSize);
     } else if (
-      ([Position.Right, Position.RightTop, Position.RightBottom].includes(sourcePosition))
-      &&
-      ([Position.Left, Position.LeftTop, Position.LeftBottom].includes(targetPosition))
-    ){
-    // and sourceX > targetX
+      [Position.Right, Position.RightTop, Position.RightBottom].includes(sourcePosition) &&
+      [Position.Left, Position.LeftTop, Position.LeftBottom].includes(targetPosition)
+    ) {
+      // and sourceX > targetX
       firstCornerPath =
-        sourceY <= targetY ? leftTopCorner(cX, sourceY, cornerSize) : leftBottomCorner(cX, sourceY, cornerSize);
+        sourceY <= targetY
+          ? leftTopCorner(cX, sourceY, cornerSize)
+          : leftBottomCorner(cX, sourceY, cornerSize);
       secondCornerPath =
-        sourceY <= targetY ? bottomRightCorner(cX, targetY, cornerSize) : topRightCorner(cX, targetY, cornerSize);
+        sourceY <= targetY
+          ? bottomRightCorner(cX, targetY, cornerSize)
+          : topRightCorner(cX, targetY, cornerSize);
     }
   } else if (leftAndRight.includes(sourcePosition) && !leftAndRight.includes(targetPosition)) {
     if (sourceX <= targetX) {
@@ -123,13 +142,13 @@ export function getSmoothStepPath({
 }
 
 interface GetMarkersProps {
-  sourceX: number,
-  sourceY: number,
-  targetX: number,
-  targetY: number,
-  arrowHeadType?: ArrowHeadType,
-  markerStartId?: string,
-  markerEndId?: string,
+  sourceX: number;
+  sourceY: number;
+  targetX: number;
+  targetY: number;
+  arrowHeadType?: ArrowHeadType;
+  markerStartId?: string;
+  markerEndId?: string;
 }
 
 function getMarkers({
@@ -139,20 +158,20 @@ function getMarkers({
   targetY,
   arrowHeadType,
   markerStartId,
-  markerEndId
-}: GetMarkersProps): { markerStart: string, markerEnd: string } {
+  markerEndId,
+}: GetMarkersProps): { markerStart: string; markerEnd: string } {
   const markerStartFunc =
     arrowHeadType === ArrowHeadType.DoubleArrow && sourceX > targetX && sourceY >= targetY
-    ? getMarkerEnd
-    : getMarkerStart;
+      ? getMarkerEnd
+      : getMarkerStart;
   const markerEndFunc =
     arrowHeadType === ArrowHeadType.DoubleArrow && sourceX > targetX && sourceY >= targetY
-    ? getMarkerStart
-    : getMarkerEnd;
+      ? getMarkerStart
+      : getMarkerEnd;
   return {
     markerStart: markerStartFunc(arrowHeadType, markerStartId),
     markerEnd: markerEndFunc(arrowHeadType, markerEndId),
-  }
+  };
 }
 
 export default memo(
@@ -176,7 +195,14 @@ export default memo(
     markerEndId,
     borderRadius = 5,
   }: EdgeSmoothStepProps) => {
-    const [centerX, centerY] = getCenter({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition });
+    const [centerX, centerY] = getCenter({
+      sourceX,
+      sourceY,
+      targetX,
+      targetY,
+      sourcePosition,
+      targetPosition,
+    });
     const labelOffset: XYPosition = labelXYOffset ?? { x: 0, y: 0 };
 
     const path = getSmoothStepPath({

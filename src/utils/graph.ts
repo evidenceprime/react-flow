@@ -16,7 +16,7 @@ import {
   FlowExportObject,
   ReactFlowState,
   NodeExtent,
-  SectionExtent
+  SectionExtent,
 } from '../types';
 
 export const isEdge = (element: Node | Connection | Edge | Section): element is Edge =>
@@ -33,7 +33,9 @@ export const getOutgoers = (node: Node, elements: Elements): Node[] => {
     return [];
   }
 
-  const outgoerIds = elements.filter((e) => isEdge(e) && e.source === node.id).map((e) => (e as Edge).target);
+  const outgoerIds = elements
+    .filter((e) => isEdge(e) && e.source === node.id)
+    .map((e) => (e as Edge).target);
   return elements.filter((e) => outgoerIds.includes(e.id)) as Node[];
 };
 
@@ -42,7 +44,9 @@ export const getIncomers = (node: Node, elements: Elements): Node[] => {
     return [];
   }
 
-  const incomersIds = elements.filter((e) => isEdge(e) && e.target === node.id).map((e) => (e as Edge).source);
+  const incomersIds = elements
+    .filter((e) => isEdge(e) && e.target === node.id)
+    .map((e) => (e as Edge).source);
   return elements.filter((e) => incomersIds.includes(e.id)) as Node[];
 };
 
@@ -96,7 +100,11 @@ export const addEdge = (edgeParams: Edge | Connection, elements: Elements): Elem
   return elements.concat(edge);
 };
 
-export const updateEdge = (oldEdge: Edge, newConnection: Connection, elements: Elements): Elements => {
+export const updateEdge = (
+  oldEdge: Edge,
+  newConnection: Connection,
+  elements: Elements
+): Elements => {
   if (!newConnection.source || !newConnection.target) {
     console.warn("Can't create new edge. An edge needs a source and a target.");
     return elements;
@@ -226,7 +234,10 @@ export const getRectOfNodes = (nodes: Node[]): Rect => {
   return boxToRect(box);
 };
 
-export const graphPosToZoomedPos = ({ x, y }: XYPosition, [tx, ty, tScale]: Transform): XYPosition => ({
+export const graphPosToZoomedPos = (
+  { x, y }: XYPosition,
+  [tx, ty, tScale]: Transform
+): XYPosition => ({
   x: x * tScale + tx,
   y: y * tScale + ty,
 });

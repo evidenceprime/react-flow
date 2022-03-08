@@ -35,7 +35,10 @@ export default ({
 
   const nodeRef = useRef(null);
 
-  const grid = useMemo(() => (snapToGrid ? snapGrid : [1, 1])! as [number, number], [snapToGrid, snapGrid]);
+  const grid = useMemo(
+    () => (snapToGrid ? snapGrid : [1, 1])! as [number, number],
+    [snapToGrid, snapGrid]
+  );
 
   const selectedNodes = useMemo(
     () =>
@@ -107,7 +110,9 @@ export default ({
   const onContextMenu = useCallback(
     (event: MouseEvent) => {
       const selectedNodes = selectedElements
-        ? selectedElements.filter(isNode).map((selectedNode) => nodes.find((node) => node.id === selectedNode.id)!)
+        ? selectedElements
+            .filter(isNode)
+            .map((selectedNode) => nodes.find((node) => node.id === selectedNode.id)!)
         : [];
 
       onSelectionContextMenu?.(event, selectedNodes);

@@ -47,13 +47,17 @@ export const setElements = (elements: Elements) => createAction(constants.SET_EL
 export const updateNodeDimensions = (updates: NodeDimensionUpdate[]) =>
   createAction(constants.UPDATE_NODE_DIMENSIONS, updates);
 
-export const updateNodePos = (payload: NodePosUpdate) => createAction(constants.UPDATE_NODE_POS, payload);
+export const updateNodePos = (payload: NodePosUpdate) =>
+  createAction(constants.UPDATE_NODE_POS, payload);
 
-export const updateNodePosDiff = (payload: NodeDiffUpdate) => createAction(constants.UPDATE_NODE_POS_DIFF, payload);
+export const updateNodePosDiff = (payload: NodeDiffUpdate) =>
+  createAction(constants.UPDATE_NODE_POS_DIFF, payload);
 
-export const setUserSelection = (mousePos: XYPosition) => createAction(constants.SET_USER_SELECTION, mousePos);
+export const setUserSelection = (mousePos: XYPosition) =>
+  createAction(constants.SET_USER_SELECTION, mousePos);
 
-export const updateUserSelection = (mousePos: XYPosition) => createAction(constants.UPDATE_USER_SELECTION, mousePos);
+export const updateUserSelection = (mousePos: XYPosition) =>
+  createAction(constants.UPDATE_USER_SELECTION, mousePos);
 
 export const unsetUserSelection = () => createAction(constants.UNSET_USER_SELECTION);
 
@@ -72,11 +76,14 @@ export const resetSelectedElements = () =>
     selectedElements: null,
   });
 
-export const setSelectedElements = (elements: Elements) => createAction(constants.SET_SELECTED_ELEMENTS, elements);
+export const setSelectedElements = (elements: Elements) =>
+  createAction(constants.SET_SELECTED_ELEMENTS, elements);
 
-export const addSelectedElements = (elements: Elements) => createAction(constants.ADD_SELECTED_ELEMENTS, elements);
+export const addSelectedElements = (elements: Elements) =>
+  createAction(constants.ADD_SELECTED_ELEMENTS, elements);
 
-export const updateTransform = (transform: Transform) => createAction(constants.UPDATE_TRANSFORM, { transform });
+export const updateTransform = (transform: Transform) =>
+  createAction(constants.UPDATE_TRANSFORM, { transform });
 
 export const updateSize = (size: Dimensions) =>
   createAction(constants.UPDATE_SIZE, {
@@ -84,7 +91,8 @@ export const updateSize = (size: Dimensions) =>
     height: size.height || 500,
   });
 
-export const initD3Zoom = (payload: InitD3ZoomPayload) => createAction(constants.INIT_D3ZOOM, payload);
+export const initD3Zoom = (payload: InitD3ZoomPayload) =>
+  createAction(constants.INIT_D3ZOOM, payload);
 
 export const setMinZoom = (minZoom: number) => createAction(constants.SET_MINZOOM, minZoom);
 
@@ -96,11 +104,14 @@ export const setTranslateExtent = (translateExtent: TranslateExtent) =>
 export const setConnectionPosition = (connectionPosition: XYPosition) =>
   createAction(constants.SET_CONNECTION_POSITION, { connectionPosition });
 
-export const setConnectionNodeId = (payload: SetConnectionId) => createAction(constants.SET_CONNECTION_NODEID, payload);
+export const setConnectionNodeId = (payload: SetConnectionId) =>
+  createAction(constants.SET_CONNECTION_NODEID, payload);
 
-export const setSnapToGrid = (snapToGrid: boolean) => createAction(constants.SET_SNAPTOGRID, { snapToGrid });
+export const setSnapToGrid = (snapToGrid: boolean) =>
+  createAction(constants.SET_SNAPTOGRID, { snapToGrid });
 
-export const setSnapGrid = (snapGrid: SnapGrid) => createAction(constants.SET_SNAPGRID, { snapGrid });
+export const setSnapGrid = (snapGrid: SnapGrid) =>
+  createAction(constants.SET_SNAPGRID, { snapGrid });
 
 export const setInteractive = (isInteractive: boolean) =>
   createAction(constants.SET_INTERACTIVE, {
@@ -124,7 +135,8 @@ export const setMultiSelectionActive = (multiSelectionActive: boolean) =>
 export const setConnectionMode = (connectionMode: ConnectionMode) =>
   createAction(constants.SET_CONNECTION_MODE, { connectionMode });
 
-export const setNodeExtent = (nodeExtent: NodeExtent) => createAction(constants.SET_NODE_EXTENT, nodeExtent);
+export const setNodeExtent = (nodeExtent: NodeExtent) =>
+  createAction(constants.SET_NODE_EXTENT, nodeExtent);
 
 export type ReactFlowAction = ReturnType<
   | typeof setOnConnect

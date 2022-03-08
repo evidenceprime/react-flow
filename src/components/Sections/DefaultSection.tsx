@@ -11,7 +11,7 @@ class DefaultSection extends React.PureComponent<SectionProps, SectionState> {
     this.state = {
       width: props.data.width,
       height: props.data.height,
-    }
+    };
   }
 
   componentDidMount() {
@@ -19,12 +19,12 @@ class DefaultSection extends React.PureComponent<SectionProps, SectionState> {
     element!.addEventListener('resize', (event: any) => {
       const updatedDimensions = {
         width: Math.floor(event.detail.width / 12.5) * 12.5,
-        height: Math.floor(event.detail.height / 12.5) * 12.5
-      }
+        height: Math.floor(event.detail.height / 12.5) * 12.5,
+      };
       this.setState(updatedDimensions);
       this.props.onNodeResize(updatedDimensions);
     });
-    
+
     function checkResize(mutations: any[]) {
       const el = mutations[0].target;
       const w = el.clientWidth;
@@ -32,15 +32,23 @@ class DefaultSection extends React.PureComponent<SectionProps, SectionState> {
 
       const isChange = mutations
         .map((m) => `${m.oldValue}`)
-        .some((prev) => prev.indexOf(`width: ${w}px`) === -1 || prev.indexOf(`height: ${h}px`) === -1);
+        .some(
+          (prev) => prev.indexOf(`width: ${w}px`) === -1 || prev.indexOf(`height: ${h}px`) === -1
+        );
 
-      if (!isChange) { return; }
+      if (!isChange) {
+        return;
+      }
       const event = new CustomEvent('resize', { detail: { width: w, height: h } });
       el.dispatchEvent(event);
     }
-    
+
     const observer = new MutationObserver(checkResize);
-    observer.observe(element!, { attributes: true, attributeOldValue: true, attributeFilter: ['style'] });
+    observer.observe(element!, {
+      attributes: true,
+      attributeOldValue: true,
+      attributeFilter: ['style'],
+    });
   }
 
   render() {
@@ -48,30 +56,33 @@ class DefaultSection extends React.PureComponent<SectionProps, SectionState> {
     return (
       <div
         ref={this.ref}
-        className={cc(["react-flow__section", { "nodrag": lockPosition }])}
+        className={cc(['react-flow__section', { nodrag: lockPosition }])}
         style={{
           height: this.state.height,
-          width: this.state.width
+          width: this.state.width,
         }}
       >
         <div className="react-flow__section__label">
           <span
             style={{
               display: 'flex',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
           >
             {label}
           </span>
         </div>
-        <div className="react-flow__section__content" style={{
-          background: background ?? '#FBFAF8'
-        }}>
+        <div
+          className="react-flow__section__content"
+          style={{
+            background: background ?? '#FBFAF8',
+          }}
+        >
           {/* content */}
         </div>
       </div>
-    )
+    );
   }
-};
+}
 
 export default DefaultSection;
