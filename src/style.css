@@ -263,6 +263,7 @@
   align-items: center;
   color: white;
   padding: 1rem 0;
+  white-space: nowrap;
 }
 
 .react-flow__section__content {
