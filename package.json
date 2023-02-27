@@ -42,7 +42,7 @@
     "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.0",
+    "@babel/core": "^7.21.0",
     "@babel/plugin-transform-runtime": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-react": "^7.14.5",
