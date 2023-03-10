@@ -100,6 +100,8 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
         border: borderColor ? `1px solid ${borderColor}` : 'none',
         background: background ?? 'transparent',
         color: fontColor ?? '#000',
+        width: data.width,
+        height: data.height,
         ...style,
       }),
       [
@@ -117,6 +119,8 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
+        data.width,
+        data.height,
       ]
     );
     const onMouseEnterHandler = useMemo(() => {
