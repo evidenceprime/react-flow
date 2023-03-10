@@ -100,8 +100,8 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
         border: borderColor ? `1px solid ${borderColor}` : 'none',
         background: background ?? 'transparent',
         color: fontColor ?? '#000',
-        width: data.width,
-        height: data.height,
+        width: data.width ? `${data.width}px` : undefined,
+        height: data.height ? `${data.height}px` : undefined,
         ...style,
       }),
       [
