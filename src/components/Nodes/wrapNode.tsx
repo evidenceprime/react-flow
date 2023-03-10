@@ -151,23 +151,6 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
       return (event: MouseEvent) => onContextMenu(event, node);
     }, [onContextMenu, node]);
 
-    const onSelectNodeHandler = useCallback(
-      (event: MouseEvent) => {
-        if (!isDraggable) {
-          if (isSelectable) {
-            unsetNodesSelection();
-
-            if (!selected) {
-              addSelectedElements(node);
-            }
-          }
-
-          onClick?.(event, node);
-        }
-      },
-      [isSelectable, selected, isDraggable, onClick, node]
-    );
-
     const onDragStart = useCallback(
       (event: DraggableEvent) => {
         onNodeDragStart?.(event as MouseEvent, node);
@@ -331,7 +314,7 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
           onMouseMove={onMouseMoveHandler}
           onMouseLeave={onMouseLeaveHandler}
           onContextMenu={onContextMenuHandler}
-          onClick={onSelectNodeHandler}
+          onClick={(evt) => onClick?.(evt, node)}
           onDoubleClick={onNodeDoubleClickHandler}
           data-id={id}
         >
