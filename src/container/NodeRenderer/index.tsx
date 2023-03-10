@@ -15,12 +15,14 @@ interface NodeRendererProps {
   onNodeDragStart?: (event: MouseEvent, node: Node) => void;
   onNodeDrag?: (event: MouseEvent, node: Node) => void;
   onNodeDragStop?: (event: MouseEvent, node: Node) => void;
+  onNodeResize: (node: Node, dimensions: object) => void;
   snapToGrid: boolean;
   snapGrid: [number, number];
   onlyRenderVisibleElements: boolean;
 }
 
 const NodeRenderer = (props: NodeRendererProps) => {
+  const { snapToGrid, snapGrid } = props;
   const transform = useStoreState((state) => state.transform);
   const selectedElements = useStoreState((state) => state.selectedElements);
   const nodesDraggable = useStoreState((state) => state.nodesDraggable);
@@ -51,11 +53,12 @@ const NodeRenderer = (props: NodeRendererProps) => {
       const updates = entries.map((entry: ResizeObserverEntry) => ({
         id: entry.target.getAttribute('data-id') as string,
         nodeElement: entry.target as HTMLDivElement,
+        snapGrid: snapToGrid ? snapGrid : null,
       }));
 
       updateNodeDimensions(updates);
     });
-  }, []);
+  }, [updateNodeDimensions, snapToGrid, snapGrid]);
 
   return (
     <div className="react-flow__nodes" style={transformStyle}>
@@ -114,6 +117,7 @@ const NodeRenderer = (props: NodeRendererProps) => {
             isSelectable={isSelectable}
             isConnectable={isConnectable}
             resizeObserver={resizeObserver}
+            onNodeResize={props.onNodeResize}
           />
         );
       })}

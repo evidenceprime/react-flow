@@ -282,6 +282,13 @@
   justify-content: center;
   align-items: center;
 
+  &.nodrag {
+    background: transparent;
+    overflow: auto;
+    resize: both;
+    cursor: default;
+  }
+
   .react-flow__handle {
     visibility: hidden;
   }

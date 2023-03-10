@@ -208,6 +208,12 @@ export interface NodeProps<T = any> {
   sourcePosition?: Position;
   isDragging?: boolean;
   connectedHandlePositions?: Position[];
+  onNodeResize: Function;
+}
+
+export interface NodeState {
+  width: number;
+  height: number;
 }
 
 export interface SectionProps<T = any> {
@@ -250,6 +256,7 @@ export interface NodeComponentProps<T = any> {
   style?: CSSProperties;
   isDragging?: boolean;
   connectedHandlePositions?: Position[];
+  onNodeResize: (node: Node, dimensions: object) => void;
 }
 
 export interface SectionComponentProps<T = any> {
@@ -303,6 +310,7 @@ export interface WrapNodeProps<T = any> {
   snapGrid?: SnapGrid;
   isDragging?: boolean;
   resizeObserver: ResizeObserver | null;
+  onNodeResize: (node: Node, dimensions: object) => void;
 }
 
 export interface WrapSectionProps<T = any> {

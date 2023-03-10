@@ -142,7 +142,8 @@ export interface ReactFlowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'on
   onEdgeDoubleClick?: (event: ReactMouseEvent, edge: Edge) => void;
   onEdgeUpdateStart?: (event: ReactMouseEvent, edge: Edge) => void;
   onEdgeUpdateEnd?: (event: MouseEvent, edge: Edge) => void;
-  onNodeResize: (section: Section, dimensions: object) => void;
+  onNodeResize: (node: Node, dimensions: object) => void;
+  onSectionResize: (section: Section, dimensions: object) => void;
   edgeUpdaterRadius?: number;
   nodeTypesId?: string;
   edgeTypesId?: string;
@@ -227,6 +228,7 @@ const ReactFlow = forwardRef<ReactFlowRefType, ReactFlowProps>(
       onEdgeUpdateStart,
       onEdgeUpdateEnd,
       onNodeResize,
+      onSectionResize,
       edgeUpdaterRadius = 10,
       nodeTypesId = '1',
       edgeTypesId = '1',
@@ -314,6 +316,7 @@ const ReactFlow = forwardRef<ReactFlowRefType, ReactFlowProps>(
             onEdgeUpdateEnd={onEdgeUpdateEnd}
             edgeUpdaterRadius={edgeUpdaterRadius}
             onNodeResize={onNodeResize}
+            onSectionResize={onSectionResize}
           />
           <ElementUpdater elements={elements} />
           {onSelectionChange && <SelectionListener onSelectionChange={onSelectionChange} />}

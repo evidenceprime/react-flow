@@ -106,6 +106,7 @@ const GraphView = ({
   onEdgeUpdateStart,
   onEdgeUpdateEnd,
   onNodeResize,
+  onSectionResize,
 }: GraphViewProps) => {
   const isInitialized = useRef<boolean>(false);
   const setOnConnect = useStoreActions((actions) => actions.setOnConnect);
@@ -258,6 +259,7 @@ const GraphView = ({
       onSelectionContextMenu={onSelectionContextMenu}
       preventScrolling={preventScrolling}
       onNodeResize={onNodeResize}
+      onSectionResize={onSectionResize}
     >
       {/* {false && <> */}
       <NodeRenderer
@@ -275,6 +277,7 @@ const GraphView = ({
         snapToGrid={snapToGrid}
         snapGrid={snapGrid}
         onlyRenderVisibleElements={onlyRenderVisibleElements}
+        onNodeResize={onNodeResize}
       />
       <EdgeRenderer
         edgeTypes={edgeTypes}
@@ -310,7 +313,7 @@ const GraphView = ({
         snapToGrid={snapToGrid}
         snapGrid={snapGrid}
         onlyRenderVisibleElements={onlyRenderVisibleElements}
-        onNodeResize={onNodeResize}
+        onNodeResize={onSectionResize}
       />
     </FlowRenderer>
   );
