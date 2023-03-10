@@ -66,7 +66,8 @@ const InteractionFlow = () => {
       onPaneScroll={captureZoomScroll ? onPaneScroll : undefined}
       onPaneContextMenu={captureZoomClick ? onPaneContextMenu : undefined}
       onMoveEnd={onMoveEnd}
-      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
+      onNodeResize={(node, dimensions) => console.log(node, dimensions)}
+      onSectionResize={(section, dimensions) => console.log(section, dimensions)}
     >
       <MiniMap />
       <Controls />

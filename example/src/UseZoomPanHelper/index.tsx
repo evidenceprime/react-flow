@@ -61,7 +61,8 @@ const UseZoomPanHelperFlow = () => {
       onElementsRemove={onElementsRemove}
       onConnect={onConnect}
       onPaneClick={onPaneClick}
-      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
+      onNodeResize={(node, dimensions) => console.log(node, dimensions)}
+      onSectionResize={(section, dimensions) => console.log(section, dimensions)}
     >
       <Background />
       <MiniMap />

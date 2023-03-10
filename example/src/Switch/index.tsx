@@ -60,7 +60,8 @@ const BasicFlow = () => {
       onElementsRemove={onElementsRemove}
       onConnect={onConnect}
       onNodeDragStop={onNodeDragStop}
-      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
+      onNodeResize={(node, dimensions) => console.log(node, dimensions)}
+      onSectionResize={(section, dimensions) => console.log(section, dimensions)}
     >
       <div style={{ position: 'absolute', right: 10, top: 10, zIndex: 4 }}>
         <button onClick={() => setElements(elementsA)} style={{ marginRight: 5 }}>

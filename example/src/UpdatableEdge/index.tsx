@@ -71,7 +71,8 @@ const UpdatableEdge = () => {
       onEdgeUpdateStart={onEdgeUpdateStart}
       onElementsRemove={onElementsRemove}
       onEdgeUpdateEnd={onEdgeUpdateEnd}
-      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
+      onNodeResize={(node, dimensions) => console.log(node, dimensions)}
+      onSectionResize={(section, dimensions) => console.log(section, dimensions)}
     >
       <Controls />
     </ReactFlow>

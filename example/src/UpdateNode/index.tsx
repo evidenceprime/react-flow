@@ -63,7 +63,8 @@ const UpdateNode = () => {
       defaultZoom={1.5}
       minZoom={0.2}
       maxZoom={4}
-      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
+      onNodeResize={(node, dimensions) => console.log(node, dimensions)}
+      onSectionResize={(section, dimensions) => console.log(section, dimensions)}
     >
       <div className="updatenode__controls">
         <label>label:</label>

@@ -127,7 +127,8 @@ const CustomNodeFlow = () => {
       snapToGrid={true}
       snapGrid={snapGrid}
       defaultZoom={1.5}
-      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
+      onNodeResize={(node, dimensions) => console.log(node, dimensions)}
+      onSectionResize={(section, dimensions) => console.log(section, dimensions)}
     >
       <MiniMap
         nodeStrokeColor={(n: Node): string => {

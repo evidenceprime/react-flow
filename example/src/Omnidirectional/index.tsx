@@ -223,6 +223,17 @@ const initialElements: Elements = [
     position: { x: 926, y: 522 },
   },
   {
+    id: '21',
+    type: 'unidirectional',
+    data: {
+      label: 'Resizable block',
+      borderColor: '#000',
+      background: '#fff',
+      lockPosition: true,
+    },
+    position: { x: 700, y: 700 },
+  },
+  {
     id: 'e1-2',
     source: '1',
     target: '2',
@@ -445,7 +456,8 @@ const OmnidirectionalFlow = () => {
             paneMoveable={true}
             minZoom={1}
             maxZoom={4}
-            onNodeResize={(section, dimensions) => console.log(dimensions)}
+            onNodeResize={(node, dimensions) => console.log(dimensions)}
+            onSectionResize={(section, dimensions) => console.log(dimensions)}
           />
         </ReactFlowProvider>
       </div>

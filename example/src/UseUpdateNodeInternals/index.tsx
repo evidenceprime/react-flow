@@ -90,7 +90,8 @@ const UpdateNodeInternalsFlow = () => {
       nodeTypes={nodeTypes}
       onConnect={onConnect}
       onPaneClick={onPaneClick}
-      onNodeResize={(section, dimensions) => console.log(section, dimensions)}
+      onNodeResize={(node, dimensions) => console.log(node, dimensions)}
+      onSectionResize={(section, dimensions) => console.log(section, dimensions)}
     >
       <div style={buttonWrapperStyles}>
         <button onClick={toggleHandleCount}>toggle handle count</button>

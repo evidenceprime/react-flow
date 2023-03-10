@@ -200,7 +200,8 @@ const OverviewFlow = () => {
         paneMoveable={false}
         minZoom={1}
         maxZoom={1}
-        onNodeResize={debounce((section, dimensions) => console.log(dimensions), 500)}
+        onNodeResize={debounce((node, dimensions) => console.log(dimensions), 500)}
+        onSectionResize={debounce((section, dimensions) => console.log(section, dimensions), 500)}
       >
         <MiniMap nodeStrokeColor={nodeStrokeColor} nodeColor={nodeColor} nodeBorderRadius={2} />
         <Controls />
