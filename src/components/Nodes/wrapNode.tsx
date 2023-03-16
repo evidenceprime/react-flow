@@ -246,42 +246,6 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
       }
     }, []);
 
-    useEffect(() => {
-      const element = nodeElement.current;
-      element!.addEventListener('resize', (event: any) => {
-        const updatedDimensions = {
-          width: Math.floor(event.detail.width / 12.5) * 12.5,
-          height: Math.floor(event.detail.height / 12.5) * 12.5,
-        };
-        handleNodeResize(updatedDimensions);
-      });
-
-      function checkResize(mutations: any[]) {
-        const el = mutations[0].target;
-        const w = el.clientWidth;
-        const h = el.clientHeight;
-
-        const isChange = mutations
-          .map((m) => `${m.oldValue}`)
-          .some(
-            (prev) => prev.indexOf(`width: ${w}px`) === -1 || prev.indexOf(`height: ${h}px`) === -1
-          );
-
-        if (!isChange) {
-          return;
-        }
-        const event = new CustomEvent('resize', { detail: { width: w, height: h } });
-        el.dispatchEvent(event);
-      }
-
-      const observer = new MutationObserver(checkResize);
-      observer.observe(element!, {
-        attributes: true,
-        attributeOldValue: true,
-        attributeFilter: ['style'],
-      });
-    }, []);
-
     if (isHidden) {
       return null;
     }
@@ -294,7 +258,6 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
         selected,
         selectable: isSelectable,
         rounded: shape === 'rounded',
-        nodrag: data.lockPosition,
       },
     ]);
 
