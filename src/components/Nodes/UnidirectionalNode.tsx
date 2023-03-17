@@ -74,7 +74,7 @@ class UnidirectionalNode extends React.PureComponent<NodeProps> {
           },
         ])}
       >
-        {label} {data.width}/{data.height}
+        {label}
         <Handle
           type="source"
           id={Position.TopLeft}
