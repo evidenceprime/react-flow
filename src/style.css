@@ -318,13 +318,6 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
-  &.nodrag {
-    background: transparent;
-    overflow: hidden;
-    resize: both;
-    cursor: default;
-  }
 }
 
 .react-flow__node-breakpoint {

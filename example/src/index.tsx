@@ -28,6 +28,7 @@ import Undirectional from './Undirectional';
 import MultiFlows from './MultiFlows';
 import Sections from './Sections';
 import Omnidirectional from './Omnidirectional';
+import SectionsAndNodes from './SectionsAndNodes';
 
 import './index.css';
 
@@ -135,6 +136,10 @@ const routes = [
   {
     path: '/omnidirectional',
     component: Omnidirectional,
+  },
+  {
+    path: '/sectionsandnodes',
+    component: SectionsAndNodes,
   },
 ];
 

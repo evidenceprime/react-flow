@@ -2,14 +2,18 @@ import React from 'react';
 import cc from 'classcat';
 
 import Handle from '../Handle';
-import { NodeProps, Position } from '../../types';
+import { NodeProps, NodeState, Position } from '../../types';
 
-class UnidirectionalNode extends React.PureComponent<NodeProps> {
+class UnidirectionalNode extends React.PureComponent<NodeProps, NodeState> {
   ref: React.RefObject<HTMLDivElement>;
 
   constructor(props: NodeProps) {
     super(props);
     this.ref = React.createRef();
+    this.state = {
+      width: props.data.width,
+      height: props.data.height,
+    };
   }
 
   componentDidMount() {
@@ -19,6 +23,7 @@ class UnidirectionalNode extends React.PureComponent<NodeProps> {
         width: Math.floor(event.detail.width / 12.5) * 12.5,
         height: Math.floor(event.detail.height / 12.5) * 12.5,
       };
+      this.setState(updatedDimensions);
       this.props.onNodeResize(updatedDimensions);
     });
 
@@ -46,8 +51,6 @@ class UnidirectionalNode extends React.PureComponent<NodeProps> {
       attributeOldValue: true,
       attributeFilter: ['style'],
     });
-
-    return () => observer.disconnect();
   }
 
   render() {
@@ -63,18 +66,21 @@ class UnidirectionalNode extends React.PureComponent<NodeProps> {
     return (
       <div
         ref={this.ref}
-        style={{
-          height: '100%',
-          width: '100%',
-        }}
         className={cc([
-          'react-flow__node-unidirectional-content',
+          'react-flow__node-unidirectional',
           {
             nodrag: data.lockPosition,
           },
         ])}
+        style={{
+          height: this.state.height,
+          width: this.state.width,
+          background: data.background,
+          color: data.color,
+          borderRadius: data.shape === 'rounded' ? '25px' : 0,
+        }}
       >
-        {label}
+        <div className="react-flow__node-unidirectional-content">{label}</div>
         <Handle
           type="source"
           id={Position.TopLeft}

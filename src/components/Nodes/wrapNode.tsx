@@ -55,6 +55,7 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
     const addSelectedElements = useStoreActions((actions) => actions.addSelectedElements);
     const updateNodePosDiff = useStoreActions((actions) => actions.updateNodePosDiff);
     const unsetNodesSelection = useStoreActions((actions) => actions.unsetNodesSelection);
+    const nodeElement = useRef<HTMLDivElement>(null);
 
     const edges = useStoreState((state) => state.edges);
     const { incoming: edgesIncoming, outgoing: edgesOutgoing } = reduce<
@@ -75,9 +76,6 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
       map('targetHandle')
     )(edgesIncoming);
 
-    const nodeElement = useRef<HTMLDivElement>(null);
-    const { shape, borderColor, background, fontColor } = data;
-
     const node = useMemo(
       () => ({ id, type, position: { x: xPos, y: yPos }, data }),
       [id, type, xPos, yPos, data]
@@ -86,6 +84,8 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
       () => (snapToGrid ? snapGrid : [1, 1])! as [number, number],
       [snapToGrid, snapGrid]
     );
+
+    const { shape, borderColor } = data;
 
     const nodeStyle: CSSProperties = useMemo(
       () => ({
@@ -98,10 +98,7 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
         // prevents jumping of nodes on start
         opacity: isInitialized ? 1 : 0,
         border: borderColor ? `1px solid ${borderColor}` : 'none',
-        background: background ?? 'transparent',
-        color: fontColor ?? '#000',
-        width: data.width ? `${data.width}px` : undefined,
-        height: data.height ? `${data.height}px` : undefined,
+        borderRadius: shape === 'rounded' ? '25px' : 0,
         ...style,
       }),
       [
@@ -113,14 +110,11 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
         onClick,
         isInitialized,
         borderColor,
-        background,
-        fontColor,
+        shape,
         style,
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
-        data.width,
-        data.height,
       ]
     );
     const onMouseEnterHandler = useMemo(() => {
@@ -235,7 +229,7 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
       if (nodeElement.current && !isHidden) {
         updateNodeDimensions([{ id, nodeElement: nodeElement.current, forceUpdate: true }]);
       }
-    }, [id, isHidden, sourcePosition, targetPosition]);
+    }, [updateNodeDimensions, id, isHidden]);
 
     useEffect(() => {
       if (nodeElement.current) {
@@ -257,7 +251,6 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
       {
         selected,
         selectable: isSelectable,
-        rounded: shape === 'rounded',
       },
     ]);
 
